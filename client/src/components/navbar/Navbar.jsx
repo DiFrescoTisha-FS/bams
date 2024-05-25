@@ -52,7 +52,7 @@ const Navbar = ({ toggle, isOpen, handleSignIn, handleSignOut }) => {
     };
   }, [handleScrollDebounced, handleResizeDebounced]);
 
-  console.log("Navbar Current User:", currentUser); // Debugging log
+  console.log("Navbar Current User:", currentUser); 
 
   return (
     <IconContext.Provider value={{ color: "#ac94f4" }}>

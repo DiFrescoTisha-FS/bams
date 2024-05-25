@@ -11,13 +11,11 @@ import {
   ThoughtsStyledImage,
   ThoughtsStyledText
 } from "./ThoughtsElements";
-
 import {
   BtnWrap,
   Button,
   ButtonIcon,
 } from "../StyledComponents";
-
 import PlanetAudioPlayer from "../planetaudioplayer/PlanetAudioPlayer";
 import Song1 from "../../songs/goku.mp3";
 import Song2 from "../../songs/ten_below.mp3";
@@ -25,7 +23,7 @@ import Song3 from "../../songs/up_in_clouds.mp3";
 import Song4 from "../../songs/jp_legacy.mp3";
 import Song5 from "../../songs/Up All Night.mp3";
 import Song6 from "../../songs/Blitz.mp3";
-import Song7 from "../../songs/call me back.mp3";
+import Song7 from "../../songs/call_me_back.mp3";
 import Song8 from "../../songs/Changed_Things.mp3";
 
 const MAP_AREAS = {
@@ -98,8 +96,6 @@ const MAP_AREAS = {
   ],
 };
 
-
-
 const Thoughts = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
@@ -113,29 +109,29 @@ const Thoughts = () => {
   const cloudinary = useCloudinary();
 
   const desktopUrl = useMemo(() => cloudinary.url("THOUGHTSDDD_2_htcj9g", {
-  transformation: [
-    { width: 1920, crop: "scale" },
-    { quality: "auto:good" },
-    { fetch_format: "auto" },
-  ],
-}));
+    transformation: [
+      { width: 1920, crop: "scale" },
+      { quality: "auto:good" },
+      { fetch_format: "auto" },
+    ],
+  }), [cloudinary]);
 
-const mobileUrl = useMemo(() => cloudinary.url("mobile103_rxzgre", {
-  transformation: [
-    { width: 386, crop: "scale" }, // Adjust width for mobile
-    { quality: "auto:good" },
-    { fetch_format: "auto" },
-  ],
-}));
+  const mobileUrl = useMemo(() => cloudinary.url("mobile103_rxzgre", {
+    transformation: [
+      { width: 386, crop: "scale" }, // Adjust width for mobile
+      { quality: "auto:good" },
+      { fetch_format: "auto" },
+    ],
+  }), [cloudinary]);
 
-const contentImageUrl = useMemo(() => cloudinary.url("tattoofingers_hdvyyn_emezhw", {
-  width: 455,
-  height: 455,
-  crop: "fill",
-  quality: "auto",
-  fetch_format: "auto",
-  secure: true,
-}));
+  const contentImageUrl = useMemo(() => cloudinary.url("tattoofingers_hdvyyn_emezhw", {
+    width: 455,
+    height: 455,
+    crop: "fill",
+    quality: "auto",
+    fetch_format: "auto",
+    secure: true,
+  }), [cloudinary]);
 
   const handleAreaEnter = (area) => {
     setTooltipInfo({
@@ -164,7 +160,7 @@ const contentImageUrl = useMemo(() => cloudinary.url("tattoofingers_hdvyyn_emezh
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [desktopUrl, mobileUrl]);
 
   return (
     <ThoughtsContainer id="thoughts">

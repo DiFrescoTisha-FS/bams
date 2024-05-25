@@ -27,13 +27,13 @@ export const NewSection = () => {
     setHover(!hover);
   };
 
-  const desktopUrl =  useMemo(() => cloudinary.url("NEWD_xzlbos", {
+  const desktopUrl = useMemo(() => cloudinary.url("NEWD_xzlbos", {
     transformation: [
       { width: 1920, crop: "scale" },
       { quality: "auto:good" },
       { fetch_format: "auto" },
     ],
-  }));
+  }), [cloudinary]);
 
   return (
     <>

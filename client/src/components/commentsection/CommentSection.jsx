@@ -3,7 +3,7 @@ import axios from "axios";
 import Rating from "react-rating-stars-component";
 import { BsSendFill } from "react-icons/bs";
 import { useAuthContext } from '../../contexts/AuthContext';
-import useCloudinary from '../../hooks/useCloudinary';
+import cloudinaryInstance from '../../cloudinaryConfig'; // Import the Cloudinary config
 import PropTypes from 'prop-types';
 import {
   SectionContainer,
@@ -22,24 +22,22 @@ import {
 
 const CommentSection = React.memo(({ currentUser }) => {
   const { dispatch, setErrorMessage, clearErrorMessage, setSuccessMessage, clearSuccessMessage } = useAuthContext();
-  const cloudinary = useCloudinary();
 
-  const desktopUrl = useMemo(() => cloudinary.url("COMMENTBG_2_mctqkg", {
+  const desktopUrl = useMemo(() => cloudinaryInstance.url("COMMENTBG_2_mctqkg", {
     transformation: [
       { width: 1920, crop: "scale" },
       { quality: "auto:good" },
       { fetch_format: "auto" },
     ],
-  }), [cloudinary]);
+  }), []);
 
-  const contentImageUrl = useMemo(() => cloudinary.url("bam_ctu4i6", {
-    width: 455,
-    height: 455,
-    crop: "fill",
-    quality: "auto",
-    fetch_format: "auto",
-    secure: true,
-  }), [cloudinary]);
+  const contentImageUrl = useMemo(() => cloudinaryInstance.url("bam_ctu4i6", {
+    transformation: [
+      { width: 455, height: 455, crop: "fill" },
+      { quality: "auto" },
+      { fetch_format: "auto" },
+    ],
+  }), []);
 
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
