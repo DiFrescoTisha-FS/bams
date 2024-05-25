@@ -13,11 +13,8 @@ const passport = require('./api/auth/auth.js');
 const cors = require('cors');
 
 // Load environment variables based on the NODE_ENV
-if (process.env.NODE_ENV === 'production') {
-  dotenv.config({ path: path.resolve(__dirname, '../.env.production') });
-} else {
-  dotenv.config({ path: path.resolve(__dirname, '../.env.development') });
-}
+const envFile = process.env.NODE_ENV === 'production' ? '../.env.production' : '../.env.development';
+dotenv.config({ path: path.resolve(__dirname, envFile) });
 
 const app = express();
 connectDB();
@@ -32,7 +29,7 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
@@ -79,7 +76,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Define your routes
-app.use(routes);
+app.use('/api', routes); // Assuming your routes are prefixed with /api
 
 // Test database endpoint
 app.get('/test-db', async (req, res) => {
