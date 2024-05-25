@@ -1,3 +1,4 @@
+// vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
@@ -16,9 +17,9 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
-    },
-    define: {
-      'process.env': process.env
     }
-  }
+  },
+  define: {
+    'process.env.VITE_CLOUDINARY_NAME': JSON.stringify(process.env.VITE_CLOUDINARY_NAME),
+  },
 });
