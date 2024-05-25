@@ -17,8 +17,6 @@ services:
         value: djqw1de3s
       - key: VITE_BASE_URL
         value: https://bams-server-ais1.onrender.com
-      - key: VITE_PORT
-        value: 5173
     region: virginia
 
   - type: web
