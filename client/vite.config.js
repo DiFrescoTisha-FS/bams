@@ -20,6 +20,6 @@ export default defineConfig({
     }
   },
   define: {
-    'process.env.VITE_CLOUDINARY_NAME': JSON.stringify(process.env.VITE_CLOUDINARY_NAME),
+    'process.env': process.env
   },
 });
