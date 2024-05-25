@@ -1,4 +1,5 @@
-FROM node:20-alpine
+# Stage 1: Build the server
+FROM node:20-alpine as build
 
 # Create a user with permissions to run the app
 RUN addgroup app && adduser -S -G app app
@@ -12,7 +13,7 @@ COPY server/package*.json ./
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the files to the working directory
+# Copy the rest of the server files to the working directory
 COPY server .
 
 # Expose port 4008
