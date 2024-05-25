@@ -1,0 +1,52 @@
+{
+  "name": "wob",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview --port $PORT --host 0.0.0.0"
+  },
+  "dependencies": {
+    "@react-three/drei": "^9.105.6",
+    "@react-three/fiber": "^8.16.6",
+    "axios": "^1.6.8",
+    "cloudinary-core": "^2.13.1",
+    "framer-motion": "^11.1.9",
+    "i": "^0.3.7",
+    "lodash": "^4.17.21",
+    "npm": "^10.7.0",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.2.1",
+    "react-img-mapper": "^1.5.1",
+    "react-player": "^2.16.0",
+    "react-rating-stars-component": "^2.2.0",
+    "react-router-dom": "^6.23.1",
+    "react-scripts": "^5.0.1",
+    "react-scroll": "^1.9.0",
+    "serve": "^14.2.3",
+    "source-map-explorer": "^2.5.3",
+    "styled-components": "^6.1.11",
+    "three": "^0.164.1",
+    "vite": "^5.2.11"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.19",
+    "esbuild": "^0.21.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "eslint-plugin-styled-components": "^0.0.0",
+    "postcss": "^8.4.38",
+    "serve": "^14.2.3",
+    "tailwindcss": "^3.4.3",
+    "vite": "^5.2.11"
+  }
+}
