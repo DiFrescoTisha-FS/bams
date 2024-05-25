@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import useCloudinary from '../../hooks/useCloudinary';
+import cloudinary from '../../cloudinaryConfig';
 import {
   SectionContainer,
   SectionBg,
@@ -21,7 +21,6 @@ import {
 
 export const NewSection = () => {
   const [hover, setHover] = useState(false);
-  const cloudinary = useCloudinary();
 
   const onHover = () => {
     setHover(!hover);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useAuthContext } from "../../contexts/AuthContext";
-import useCloudinary from '../../hooks/useCloudinary';
+import cloudinary from '../../cloudinaryConfig';
 import { FaBars } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import { animateScroll as scroll } from "react-scroll";
@@ -22,7 +22,6 @@ const Navbar = ({ toggle, isOpen, handleSignIn, handleSignOut }) => {
   const { authState } = useAuthContext();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [scrollNav, setScrollNav] = useState(false);
-  const cloudinary = useCloudinary();
   const currentUser = authState?.user;
 
   const logoUrl = cloudinary.url("logo_qkgu64", {

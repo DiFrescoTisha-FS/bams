@@ -1,5 +1,5 @@
 import { useState, useMemo, memo } from "react";
-import useCloudinary from '../../hooks/useCloudinary';
+import cloudinary from '../../cloudinaryConfig';
 import useIsMobile from '../../hooks/useIsMobile'; 
 import {
   ImgWrap,

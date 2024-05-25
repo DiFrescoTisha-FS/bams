@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import useCloudinary from '../../hooks/useCloudinary';
+import cloudinary from '../../cloudinaryConfig';
 import {
   FaFacebook,
   FaInstagram,
@@ -29,8 +29,6 @@ const Footer = () => {
     scroll.scrollToTop();
   };
 
-  const cloudinary = useCloudinary();
-
   const logoUrl = useMemo(() => cloudinary.url("logo_qkgu64", {
     transformation: [
       {
@@ -48,7 +46,7 @@ const Footer = () => {
     quality: "auto",
     fetch_format: "auto",
     secure: true,
-  }), [cloudinary]);
+  }), []);
 
   return (
     <IconContext.Provider value={{ color: "#ac94f4" }}>

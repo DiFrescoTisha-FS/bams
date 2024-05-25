@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { css } from "styled-components";
 import { media_queries } from "../../utils/media_queries";
 import EarthCanvas from "../canvas/EarthCanvas";
-import useCloudinary from '../../hooks/useCloudinary';
+import cloudinary from '../../cloudinaryConfig';
 import "../../styles/global.css";
 import {
   SharedSectionWrapper,
@@ -22,7 +22,6 @@ const HeroSection = () => {
   const [isHovered, setIsHovered] = useState(false);
   const sectionRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
-  const cloudinary = useCloudinary();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
