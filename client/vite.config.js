@@ -16,6 +16,9 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
+    },
+    define: {
+      'process.env': process.env
     }
   }
 });

@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { BtnWrap, Button, ButtonIcon } from '../StyledComponents';
 import useCloudinary from '../../hooks/useCloudinary';
-
 import {
   ArtistSectionContainer,
   ArtistSectionBg,
@@ -34,7 +33,7 @@ const ArtistSection = () => {
       { fetch_format: 'auto' },
     ],
   }), [cloudinary]);
-  
+
   return (
     <ArtistSectionContainer id="bio">
       <ArtistSectionBg>
