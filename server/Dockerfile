@@ -5,16 +5,16 @@ FROM node:20-alpine as build
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
+# Copy the client package files
 COPY client/package*.json ./client/
 
-# Install dependencies
+# Install client dependencies
 RUN cd client && npm install
 
-# Copy the rest of the files to the working directory
+# Copy the client source files
 COPY client ./client
 
-# Build the app
+# Build the client app
 RUN cd client && npm run build
 
 # Stage 2: Set up the server
@@ -26,16 +26,16 @@ RUN addgroup app && adduser -S -G app app
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
+# Copy the server package files
 COPY server/package*.json ./
 
-# Install dependencies
+# Install server dependencies
 RUN npm install
 
 # Copy the rest of the server files
 COPY server .
 
-# Copy the built client files
+# Copy the built client files from the previous stage
 COPY --from=build /app/client/dist ./client/dist
 
 # Expose port 4008
