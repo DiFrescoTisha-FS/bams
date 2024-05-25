@@ -8,13 +8,13 @@ RUN addgroup app && adduser -S -G app app
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+COPY ./client/package*.json ./
 
 # Install dependencies
 RUN npm install
 
 # Copy the rest of the files to the working directory
-COPY . .
+COPY ./client ./
 
 # Build the app
 RUN npm run build
