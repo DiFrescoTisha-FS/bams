@@ -7,13 +7,16 @@ RUN addgroup app && adduser -S -G app app
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the working directory
-COPY ./server/package*.json ./
+COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the files to the working directory
-COPY ./server ./
+# Copy the rest of the server files
+COPY . .
+
+# Copy the built client files
+COPY ./client/dist ./client/dist
 
 # Expose port 4008
 EXPOSE 4008
