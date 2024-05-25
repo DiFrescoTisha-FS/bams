@@ -1,34 +1,36 @@
 services:
   - type: web
-    name: bamvswrld-client
+    name: bams-client
     runtime: docker
-    repo: https://github.com/TrioWolf/wrld_of_bam.git
+    repo: https://github.com/DiFrescoTisha-FS/bams.git
+    branch: dev
     plan: standard
     dockerfilePath: ./client/Dockerfile
     envVars:
       - key: VITE_APP_ENV
-        value: production
+        value: development
       - key: VITE_API_URL
-        value: https://bamvswrld-server.onrender.com
+        value: http://localhost:4008  # Placeholder, to be updated
       - key: VITE_GOOGLE_CLIENT_ID
         value: 630469049970-161iihf5mjh96rt6mj963asetm2cv665.apps.googleusercontent.com
       - key: VITE_CLOUDINARY_NAME
         value: djqw1de3s
       - key: VITE_BASE_URL
-        value: https://bamvswrld-server.onrender.com
+        value: http://localhost:4008  # Placeholder, to be updated
       - key: VITE_PORT
-        value: 80
+        value: 5173
     region: virginia
 
   - type: web
-    name: bamvswrld-server
+    name: bams-server
     runtime: docker
-    repo: https://github.com/TrioWol1f/wr1d_of_bam
+    repo: https://github.com/DiFrescoTisha-FS/bams.git
+    branch: dev
     plan: standard
     dockerfilePath: ./server/Dockerfile
     envVars:
       - key: NODE_ENV
-        value: production
+        value: development
       - key: PORT
         value: 4008
       - key: MONGO_URI
@@ -40,15 +42,15 @@ services:
       - key: SESSION_SECRET
         value: xg5St2ygd+mCIrMOjSomZ77kPpGK+yaDmVvvHf+z2aw4smGrmoKi1QyaPzRvaaXYJh4cN5uGf9oebpTzhmgt1w==
       - key: REDIRECT_URL
-        value: https://bamvswrld-server.onrender.com/auth/google/callback
+        value: http://localhost:4008/auth/google/callback  # Placeholder, to be updated
       - key: BASE_URL
-        value: https://bamvswrld-server.onrender.com
+        value: http://localhost:4008  # Placeholder, to be updated
       - key: API_URL
-        value: https://bamvswrld-server.onrender.com
+        value: http://localhost:4008  # Placeholder, to be updated
       - key: JWT_SECRET_KEY
         value: mysecretkey123
       - key: FRONTEND_URL
-        value: https://bamvswrld.onrender.com
+        value: http://localhost:5173  # Placeholder, to be updated
       - key: CLOUDINARY_NAME
         value: djqw1de3s
       - key: CLOUDINARY_KEY
