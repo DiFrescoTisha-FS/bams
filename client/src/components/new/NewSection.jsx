@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import cloudinary from '../../cloudinaryConfig';
+import cloudinary from '../../utils/cloudinaryConfig'
 import {
   SectionContainer,
   SectionBg,

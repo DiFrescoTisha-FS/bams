@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import styled, { keyframes } from "styled-components";
-import cloudinary from '../../cloudinaryConfig';
+import cloudinary from '../../utils/cloudinaryConfig'; 
 
 // Keyframes for animations
 const moveTwinkBack = keyframes`

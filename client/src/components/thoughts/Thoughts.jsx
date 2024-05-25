@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import cloudinary from '../../cloudinaryConfig';
+import cloudinary from '../../utils/cloudinaryConfig' 
 import Tooltip from "../tooltip/Tooltip";
 import {
   ThoughtsContainer,

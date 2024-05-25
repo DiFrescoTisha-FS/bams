@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { css } from "styled-components";
 import { media_queries } from "../../utils/media_queries";
 import EarthCanvas from "../canvas/EarthCanvas";
-import cloudinary from '../../cloudinaryConfig';
+import cloudinary from '../../utils/cloudinaryConfig'
 import "../../styles/global.css";
 import {
   SharedSectionWrapper,
