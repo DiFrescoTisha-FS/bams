@@ -8,15 +8,15 @@ services:
     dockerfilePath: ./client/Dockerfile
     envVars:
       - key: VITE_APP_ENV
-        value: development
+        value: production
       - key: VITE_API_URL
-        value: https://bams-server.onrender.com
+        value: https://bams-server-ais1.onrender.com
       - key: VITE_GOOGLE_CLIENT_ID
         value: 630469049970-161iihf5mjh96rt6mj963asetm2cv665.apps.googleusercontent.com
       - key: VITE_CLOUDINARY_NAME
         value: djqw1de3s
       - key: VITE_BASE_URL
-        value: https://bams-server.onrender.com
+        value: https://bams-server-ais1.onrender.com
       - key: VITE_PORT
         value: 5173
     region: virginia
@@ -30,7 +30,7 @@ services:
     dockerfilePath: ./server/Dockerfile
     envVars:
       - key: NODE_ENV
-        value: development
+        value: production
       - key: PORT
         value: 4008
       - key: MONGO_URI
@@ -42,15 +42,15 @@ services:
       - key: SESSION_SECRET
         value: xg5St2ygd+mCIrMOjSomZ77kPpGK+yaDmVvvHf+z2aw4smGrmoKi1QyaPzRvaaXYJh4cN5uGf9oebpTzhmgt1w==
       - key: REDIRECT_URL
-        value: https://bams-server.onrender.com/auth/google/callback
+        value: https://bams-server-ais1.onrender.com/auth/google/callback
       - key: BASE_URL
-        value: https://bams-server.onrender.com
+        value: https://bams-server-ais1.onrender.com
       - key: API_URL
-        value: https://bams-server.onrender.com
+        value: https://bams-server-ais1.onrender.com
       - key: JWT_SECRET_KEY
         value: mysecretkey123
       - key: FRONTEND_URL
-        value: https://bams-client.onrender.com
+        value: https://bams-client-ais1.onrender.com
       - key: CLOUDINARY_NAME
         value: djqw1de3s
       - key: CLOUDINARY_KEY
