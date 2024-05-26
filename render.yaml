@@ -4,7 +4,6 @@ services:
     runtime: docker
     repo: https://github.com/DiFrescoTisha-FS/bams.git
     branch: dev
-    plan: standard
     dockerfilePath: ./client/Dockerfile
     envVars:
       - key: VITE_APP_ENV
@@ -13,22 +12,18 @@ services:
         value: https://bams-server-ais1.onrender.com
       - key: VITE_GOOGLE_CLIENT_ID
         value: 22621576618-1mk56fhnlhf1aforg97tjkjjhvv9g23g.apps.googleusercontent.com
+      - key: VITE_CLOUDINARY_NAME
+        value: djqw1de3s
       - key: VITE_CLOUDINARY_KEY
         value: 152654976184646
       - key: VITE_CLOUDINARY_SECRET
         value: IIB4wy5vb-BMnITnR583sd6MxLM
-      - key: VITE_CLOUDINARY_NAME
-        value: djqw1de3s
-      - key: VITE_BASE_URL
-        value: https://bams-server-ais1.onrender.com
-    region: virginia
 
   - type: web
     name: bams-server
     runtime: docker
     repo: https://github.com/DiFrescoTisha-FS/bams.git
     branch: dev
-    plan: standard
     dockerfilePath: ./server/Dockerfile
     envVars:
       - key: NODE_ENV
@@ -43,20 +38,19 @@ services:
         value: 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
       - key: SESSION_SECRET
         value: xg5St2ygd+mCIrMOjSomZ77kPpGK+yaDmVvvHf+z2aw4smGrmoKi1QyaPzRvaaXYJh4cN5uGf9oebpTzhmgt1w==
-      - key: REDIRECT_URL
-        value: https://bams-server-ais1.onrender.com/auth/google/callback
-      - key: BASE_URL
-        value: https://bams-server-ais1.onrender.com
-      - key: API_URL
-        value: https://bams-server-ais1.onrender.com
-      - key: JWT_SECRET_KEY
-        value: mysecretkey123
-      - key: FRONTEND_URL
-        value: https://bams-client-ais1.onrender.com
       - key: CLOUDINARY_NAME
         value: djqw1de3s
       - key: CLOUDINARY_KEY
         value: 152654976184646
       - key: CLOUDINARY_SECRET
         value: IIB4wy5vb-BMnITnR583sd6MxLM
-    region: virginia
+      - key: BASE_URL
+        value: https://bams-server-ais1.onrender.com
+      - key: FRONTEND_URL
+        value: https://bams-client-ais1.onrender.com
+      - key: REDIRECT_URL
+        value: https://bams-server-ais1.onrender.com/auth/google/callback
+      - key: API_URL
+        value: https://bams-server-ais1.onrender.com
+      - key: JWT_SECRET_KEY
+        value: mysecretkey123
