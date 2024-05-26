@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import cloudinary from '../../utils/cloudinaryConfig' 
+import useCloudinary from '../../hooks/useCloudinary'; 
 import Tooltip from "../tooltip/Tooltip";
 import {
   ThoughtsContainer,
@@ -106,6 +106,8 @@ const Thoughts = () => {
     left: 0,
     specialPosition: "default",
   });
+
+  const cloudinary = useCloudinary();
 
   const desktopUrl = useMemo(() => cloudinary.url("THOUGHTSDDD_2_htcj9g", {
     transformation: [

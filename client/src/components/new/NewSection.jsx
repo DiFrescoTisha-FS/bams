@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import cloudinary from '../../utils/cloudinaryConfig'
+import useCloudinary from '../../hooks/useCloudinary';
 import {
   SectionContainer,
   SectionBg,
@@ -25,6 +25,8 @@ export const NewSection = () => {
   const onHover = () => {
     setHover(!hover);
   };
+
+  const cloudinary = useCloudinary();
 
   const desktopUrl = useMemo(() => cloudinary.url("NEWD_xzlbos", {
     transformation: [

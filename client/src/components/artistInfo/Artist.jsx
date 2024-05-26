@@ -1,7 +1,7 @@
 // ArtistSection.js
 import React, { useState, useMemo } from 'react';
 import { BtnWrap, Button, ButtonIcon } from '../StyledComponents';
-import cloudinary from '../../utils/cloudinaryConfig'
+import useCloudinary from '../../hooks/useCloudinary';
 import {
   ArtistSectionContainer,
   ArtistSectionBg,
@@ -17,6 +17,8 @@ import { FaRocket as RocketIcon, FaArrowAltCircleDown as ArrowIcon } from 'react
 
 const ArtistSection = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const cloudinary = useCloudinary();
+
 
   const desktopUrl = useMemo(() => cloudinary.url('ARTISTDD_vmsgcd', {
     transformation: [
