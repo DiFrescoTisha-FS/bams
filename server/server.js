@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const path = require('path');
 const connectDB = require('./api/database/database.js');
 const mongoose = require('mongoose');
+const cloudinary = require('cloudinary').v2;
 const helmet = require('helmet');
 const routes = require('./api/routes/routes.js');
 const morgan = require('morgan');
@@ -20,6 +21,13 @@ const app = express();
 connectDB();
 
 const port = process.env.PORT || 4008;
+
+cloudinary.config({ 
+  cloud_name: process.env.CLOUDINARY_NAME, 
+  api_key: process.env.CLOUDINARY_KEY, 
+  api_secret: process.env.CLOUDINARY_SECRET,
+  secure: true
+});
 
 const allowedOrigins = [
   'http://localhost:5173',
