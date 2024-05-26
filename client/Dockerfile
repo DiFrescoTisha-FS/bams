@@ -13,9 +13,6 @@ RUN npm install
 # Copy the rest of the client files to the working directory
 COPY client .
 
-# Copy the .env file to the working directory
-COPY client/.env .env
-
 # Build the app
 RUN npm run build
 

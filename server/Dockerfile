@@ -16,15 +16,6 @@ RUN npm install
 # Copy the rest of the server files to the working directory
 COPY server .
 
-# Copy the environment variables to the working directory
-COPY server/.env .env
-
-# Change ownership to the app user
-RUN chown -R app:app /app
-
-# Switch to the app user
-USER app
-
 # Expose port 4008
 EXPOSE 4008
 
