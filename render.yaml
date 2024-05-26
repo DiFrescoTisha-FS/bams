@@ -12,7 +12,7 @@ services:
       - key: VITE_API_URL
         value: https://bams-server-ais1.onrender.com
       - key: VITE_GOOGLE_CLIENT_ID
-        value: 630469049970-161iihf5mjh96rt6mj963asetm2cv665.apps.googleusercontent.com
+        value: 22621576618-1mk56fhnlhf1aforg97tjkjjhvv9g23g.apps.googleusercontent.com
       - key: VITE_CLOUDINARY_KEY
         value: 152654976184646
       - key: VITE_CLOUDINARY_SECRET
@@ -38,9 +38,9 @@ services:
       - key: MONGO_URI
         value: mongodb+srv://tishd7:MihiaBFL68@fullstack.hkhucia.mongodb.net/?retryWrites=true&w=majority&appName=fullstack
       - key: GOOGLE_CLIENT_ID
-        value: 630469049970-vlu6fe64h4dh1ljqdqlo538g33tqmh6t.apps.googleusercontent.com
+        value: 22621576618-1mk56fhnlhf1aforg97tjkjjhvv9g23g.apps.googleusercontent.com
       - key: GOOGLE_CLIENT_SECRET
-        value: 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
+        value: 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
       - key: SESSION_SECRET
         value: xg5St2ygd+mCIrMOjSomZ77kPpGK+yaDmVvvHf+z2aw4smGrmoKi1QyaPzRvaaXYJh4cN5uGf9oebpTzhmgt1w==
       - key: REDIRECT_URL

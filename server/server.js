@@ -13,26 +13,25 @@ const MongoStore = require('connect-mongo');
 const passport = require('./api/auth/auth.js');
 const cors = require('cors');
 
-// Load environment variables based on the NODE_ENV
-const envFile = process.env.NODE_ENV === 'production' ? '../.env.production' : '../.env.development';
-dotenv.config({ path: path.resolve(__dirname, envFile) });
+// Load environment variables from .env file
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 const app = express();
 connectDB();
 
 const port = process.env.PORT || 4008;
 
-cloudinary.config({ 
-  cloud_name: process.env.CLOUDINARY_NAME, 
-  api_key: process.env.CLOUDINARY_KEY, 
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
   api_secret: process.env.CLOUDINARY_SECRET,
-  secure: true
+  secure: true,
 });
 
 const allowedOrigins = [
   'http://localhost:5173',
   'https://bamvsthewrld.com',
-  'https://wrld-of-bam-client.onrender.com'
+  'https://bams-client-ais1.onrender.com',
 ];
 
 const corsOptions = {
@@ -43,27 +42,29 @@ const corsOptions = {
       callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
-app.use(morgan('combined', { stream: { write: message => logger.info(message.trim()) } }));
+app.use(morgan('combined', { stream: { write: (message) => logger.info(message.trim()) } }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Session configuration
-app.use(session({
-  store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    secure: process.env.NODE_ENV === 'production',
-    httpOnly: true,
-    maxAge: 1000 * 60 * 60 * 24, // 24 hours
-    sameSite: 'lax'
-  }
-}));
+app.use(
+  session({
+    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === 'production',
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24, // 24 hours
+      sameSite: 'lax',
+    },
+  })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -103,8 +104,8 @@ function errorHandler(err, req, res, next) {
   res.status(err.status || 500).json({
     error: {
       message: err.message || 'Internal Server Error',
-      status: err.status || 500
-    }
+      status: err.status || 500,
+    },
   });
 }
 

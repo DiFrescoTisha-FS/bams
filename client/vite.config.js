@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: '0.0.0.0',
-    port: 5173,
+    port: parseInt(process.env.VITE_PORT, 10) || 5173,
     watch: {
       usePolling: true,
     },
@@ -14,11 +14,11 @@ export default defineConfig({
         target: process.env.VITE_API_URL || 'http://localhost:4008',
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      }
-    }
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
   },
   define: {
-    'process.env': process.env
+    'process.env': process.env,
   },
 });
