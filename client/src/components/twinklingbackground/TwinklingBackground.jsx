@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import styled, { keyframes } from "styled-components";
-import useCloudinary from '../../hooks/useCloudinary';
+import cloudinaryInstance from '../utils/cloudinarySetup';
 
 // Keyframes for animations
 const moveTwinkBack = keyframes`
@@ -144,7 +144,7 @@ const TwinklingBackground = () => {
   const cloudinary = useCloudinary();
 
   const starsImageUrl = useMemo(() => {
-    return cloudinary.url("stars_yyxw8j", {
+    return cloudinaryInstance.url("stars_yyxw8j", {
       transformation: [
         { width: "auto", dpr: "auto", crop: "scale" },
         // Any other transformations

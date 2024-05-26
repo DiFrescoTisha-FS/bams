@@ -1,7 +1,7 @@
 // ArtistSection.js
 import React, { useState, useMemo } from 'react';
 import { BtnWrap, Button, ButtonIcon } from '../StyledComponents';
-import useCloudinary from '../../hooks/useCloudinary';
+import cloudinaryInstance from '../utils/cloudinarySetup';
 import {
   ArtistSectionContainer,
   ArtistSectionBg,
@@ -20,7 +20,7 @@ const ArtistSection = () => {
   const cloudinary = useCloudinary();
 
 
-  const desktopUrl = useMemo(() => cloudinary.url('ARTISTDD_vmsgcd', {
+  const desktopUrl = useMemo(() => cloudinaryInstance.url('ARTISTDD_vmsgcd', {
     transformation: [
       { width: 1920, crop: 'scale' },
       { quality: 'auto:good' },
@@ -28,7 +28,7 @@ const ArtistSection = () => {
     ],
   }), []);
 
-  const contentImageUrl = useMemo(() => cloudinary.url('bam_shooter_kujs9e', {
+  const contentImageUrl = useMemo(() => cloudinaryInstance.url('bam_shooter_kujs9e', {
     transformation: [
       { width: 455, height: 455, crop: 'fill' },
       { quality: 'auto' },

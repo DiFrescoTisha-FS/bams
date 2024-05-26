@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import useCloudinary from '../../hooks/useCloudinary';
+import cloudinaryInstance from '../utils/cloudinarySetup';
 import {
   FaFacebook,
   FaInstagram,
@@ -31,7 +31,7 @@ const Footer = () => {
 
   const cloudinary = useCloudinary();
 
-  const logoUrl = useMemo(() => cloudinary.url("logo_qkgu64", {
+  const logoUrl = useMemo(() => cloudinaryInstance.url("logo_qkgu64", {
     transformation: [
       {
         width: 60,

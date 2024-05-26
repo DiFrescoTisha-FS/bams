@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { css } from "styled-components";
 import { media_queries } from "../../utils/media_queries";
 import EarthCanvas from "../canvas/EarthCanvas";
-import useCloudinary from '../../hooks/useCloudinary';
+import cloudinaryInstance from '../utils/cloudinarySetup';
 import "../../styles/global.css";
 import {
   SharedSectionWrapper,
@@ -45,8 +45,8 @@ const HeroSection = () => {
     };
   }, []);
 
-  const saturnWebPUrl = cloudinary.url("backplanet_t2wgdk", { format: "webp" });
-  const earthWebPUrl = cloudinary.url("earth_mwg9cb", { format: "webp" });
+  const saturnWebPUrl = cloudinaryInstance.url("backplanet_t2wgdk", { format: "webp" });
+  const earthWebPUrl = cloudinaryInstance.url("earth_mwg9cb", { format: "webp" });
 
   return (
     <SectionContainer id="home">

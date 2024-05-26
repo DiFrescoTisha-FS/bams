@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import useCloudinary from '../../hooks/useCloudinary'; 
+import cloudinaryInstance from '../utils/cloudinarySetup';
 import Tooltip from "../tooltip/Tooltip";
 import {
   ThoughtsContainer,
@@ -109,7 +109,7 @@ const Thoughts = () => {
 
   const cloudinary = useCloudinary();
 
-  const desktopUrl = useMemo(() => cloudinary.url("THOUGHTSDDD_2_htcj9g", {
+  const desktopUrl = useMemo(() => cloudinaryInstance.url("THOUGHTSDDD_2_htcj9g", {
     transformation: [
       { width: 1920, crop: "scale" },
       { quality: "auto:good" },
@@ -117,7 +117,7 @@ const Thoughts = () => {
     ],
   }), [cloudinary]);
 
-  const mobileUrl = useMemo(() => cloudinary.url("mobile103_rxzgre", {
+  const mobileUrl = useMemo(() => cloudinaryInstance.url("mobile103_rxzgre", {
     transformation: [
       { width: 386, crop: "scale" }, // Adjust width for mobile
       { quality: "auto:good" },
@@ -125,7 +125,7 @@ const Thoughts = () => {
     ],
   }), [cloudinary]);
 
-  const contentImageUrl = useMemo(() => cloudinary.url("tattoofingers_hdvyyn_emezhw", {
+  const contentImageUrl = useMemo(() => cloudinaryInstance.url("tattoofingers_hdvyyn_emezhw", {
     width: 455,
     height: 455,
     crop: "fill",

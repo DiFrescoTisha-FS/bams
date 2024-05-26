@@ -3,7 +3,7 @@ import axios from "axios";
 import Rating from "react-rating-stars-component";
 import { BsSendFill } from "react-icons/bs";
 import { useAuthContext } from '../../contexts/AuthContext';
-import useCloudinary from '../../hooks/useCloudinary';
+import cloudinaryInstance from '../utils/cloudinarySetup';
 import PropTypes from 'prop-types';
 import {
   SectionContainer,
@@ -25,7 +25,7 @@ const CommentSection = React.memo(({ currentUser }) => {
 
   const cloudinary = useCloudinary();
 
-  const desktopUrl = useMemo(() => cloudinary.url("COMMENTBG_2_mctqkg", {
+  const desktopUrl = useMemo(() => cloudinaryInstance.url("COMMENTBG_2_mctqkg", {
     transformation: [
       { width: 1920, crop: "scale" },
       { quality: "auto:good" },
@@ -33,7 +33,7 @@ const CommentSection = React.memo(({ currentUser }) => {
     ],
   }), []);
 
-  const contentImageUrl = useMemo(() => cloudinary.url("bam_ctu4i6", {
+  const contentImageUrl = useMemo(() => cloudinaryInstance.url("bam_ctu4i6", {
     transformation: [
       { width: 455, height: 455, crop: "fill" },
       { quality: "auto" },
