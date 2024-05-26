@@ -13,8 +13,10 @@ const MongoStore = require('connect-mongo');
 const passport = require('./api/auth/auth.js');
 const cors = require('cors');
 
-// Load environment variables from .env file
-dotenv.config({ path: path.resolve(__dirname, '.env') });
+const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development';
+dotenv.config({ path: path.resolve(__dirname, envFile) });
+
+console.log('Cloudinary Name:', process.env.CLOUDINARY_NAME);
 
 const app = express();
 connectDB();

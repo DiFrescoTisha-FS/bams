@@ -1,22 +1,22 @@
-# Stage 1: Build the React app
+# Stage 1: Build the client
 FROM node:20-alpine as build
 
 # Set the working directory
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the working directory
-COPY client/package*.json ./
+COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
 # Copy the rest of the client files to the working directory
-COPY client .
+COPY . .
 
-# Build the app
+# Build the client app
 RUN npm run build
 
-# Stage 2: Serve the app with Nginx
+# Stage 2: Serve the client with Nginx
 FROM nginx:alpine
 
 # Copy the build output to the Nginx html folder

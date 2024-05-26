@@ -1,0 +1,28 @@
+services:
+  web:
+    depends_on: 
+      - api
+    build: ./client
+    ports:
+      - 80:80
+    env_file:
+      - ./client/.env.production
+
+  api: 
+    depends_on: 
+      - db
+    build: ./server
+    ports: 
+      - 4008:4008
+    env_file:
+      - ./server/.env.production
+
+  db:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - fullstack:/data/db
+
+volumes:
+  fullstack:
