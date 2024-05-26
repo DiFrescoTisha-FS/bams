@@ -1,9 +1,9 @@
+// utils/cloudinarySetup.js
 import { Cloudinary } from 'cloudinary-core';
 
-console.log('Cloudinary Name:', import.meta.env.VITE_CLOUDINARY_NAME);
-
+// Hardcoding Cloudinary configuration for debugging
 const cloudinaryInstance = new Cloudinary({
-  cloud_name: import.meta.env.VITE_CLOUDINARY_NAME,
+  cloud_name: 'djqw1de3s',  // Replace with your actual Cloudinary name
   secure: true,
 });
 
