@@ -1,10 +1,13 @@
 services:
   - type: web
-    name: bams-client
     runtime: docker
+    name: bams-client
     repo: https://github.com/DiFrescoTisha-FS/bams.git
     branch: dev
-    dockerfilePath: ./client/Dockerfile
+    plan: free
+    buildCommand: ""
+    startCommand: ""
+    dockerfilePath: client/Dockerfile
     envVars:
       - key: VITE_GOOGLE_CLIENT_ID
         value: 22621576618-1mk56fhnlhf1aforg97tjkjjhvv9g23g.apps.googleusercontent.com
@@ -20,16 +23,16 @@ services:
         value: production
       - key: VITE_APP_ENV
         value: production
-      - key: VITE_PORT
-        value: 5173
-    region: virginia
 
   - type: web
-    name: bams-server
     runtime: docker
+    name: bams-server
     repo: https://github.com/DiFrescoTisha-FS/bams.git
     branch: dev
-    dockerfilePath: ./server/Dockerfile
+    plan: standard
+    buildCommand: ""
+    startCommand: ""
+    dockerfilePath: server/Dockerfile
     envVars:
       - key: NODE_ENV
         value: production
@@ -59,4 +62,3 @@ services:
         value: https://bams-server-ais1.onrender.com
       - key: JWT_SECRET_KEY
         value: mysecretkey123
-    region: virginia

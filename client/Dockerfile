@@ -4,22 +4,22 @@ FROM node:20-alpine as build
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+# Copy package.json and package-lock.json
+COPY client/package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the client files to the working directory
-COPY . .
+# Copy the rest of the client files
+COPY client .
 
-# Build the client app
+# Build the app
 RUN npm run build
 
-# Stage 2: Serve the client with Nginx
+# Stage 2: Serve the app with Nginx
 FROM nginx:alpine
 
-# Copy the build output to the Nginx html folder
+# Copy the build output to Nginx's html directory
 COPY --from=build /app/dist /usr/share/nginx/html
 
 # Expose port 80
