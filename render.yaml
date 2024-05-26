@@ -13,6 +13,10 @@ services:
         value: https://bams-server-ais1.onrender.com
       - key: VITE_GOOGLE_CLIENT_ID
         value: 630469049970-161iihf5mjh96rt6mj963asetm2cv665.apps.googleusercontent.com
+      - key: VITE_CLOUDINARY_KEY
+        value: 152654976184646
+      - key: VITE_CLOUDINARY_SECRET
+        value: IIB4wy5vb-BMnITnR583sd6MxLM
       - key: VITE_CLOUDINARY_NAME
         value: djqw1de3s
       - key: VITE_BASE_URL
