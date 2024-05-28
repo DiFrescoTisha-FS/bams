@@ -34,7 +34,7 @@ cloudinary.config({
 const allowedOrigins = [
     'http://localhost:5173',
     'https://bamvsthewrld.com',
-    'https://bams-client-latest.onrender.com',
+    'https://bams-app.onrender.com',
 ];
 
 const corsOptions = {

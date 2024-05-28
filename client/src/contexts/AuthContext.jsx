@@ -1,4 +1,3 @@
-// AuthContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -11,6 +10,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchAuthStatus = async () => {
+      console.log('Fetching auth status from:', import.meta.env.VITE_API_URL); // Log the API URL for debugging
       try {
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/status`, {
           withCredentials: true,

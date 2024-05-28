@@ -9,8 +9,11 @@ COPY client/ ./
 RUN npm run build
 
 # Stage 2: Set up the server
-FROM nginx:1.23.1-alpine
-COPY --from=build /usr/app/dist /usr/share/nginx/html
-COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+FROM node:16.17.1-alpine3.16
+WORKDIR /usr/app
+COPY server/package*.json ./
+RUN npm ci
+COPY server/ ./
+COPY --from=build /usr/app/dist ./client/dist
+EXPOSE 4008
+CMD ["node", "server.js"]
