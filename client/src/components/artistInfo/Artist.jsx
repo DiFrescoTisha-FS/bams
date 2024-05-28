@@ -1,7 +1,7 @@
 // ArtistSection.js
 import React, { useState, useMemo } from 'react';
 import { BtnWrap, Button, ButtonIcon } from '../StyledComponents';
-import cloudinaryInstance from '../utils/cloudinarySetup';
+import useCloudinary from '../../hooks/useCloudinary'; // Correct import
 import {
   ArtistSectionContainer,
   ArtistSectionBg,
@@ -17,8 +17,7 @@ import { FaRocket as RocketIcon, FaArrowAltCircleDown as ArrowIcon } from 'react
 
 const ArtistSection = () => {
   const [isHovered, setIsHovered] = useState(false);
-  const cloudinary = useCloudinary();
-
+  const cloudinaryInstance = useCloudinary(); // Use the hook
 
   const desktopUrl = useMemo(() => cloudinaryInstance.url('ARTISTDD_vmsgcd', {
     transformation: [
@@ -26,7 +25,7 @@ const ArtistSection = () => {
       { quality: 'auto:good' },
       { fetch_format: 'auto' },
     ],
-  }), []);
+  }), [cloudinaryInstance]);
 
   const contentImageUrl = useMemo(() => cloudinaryInstance.url('bam_shooter_kujs9e', {
     transformation: [
@@ -34,7 +33,7 @@ const ArtistSection = () => {
       { quality: 'auto' },
       { fetch_format: 'auto' },
     ],
-  }), []);
+  }), [cloudinaryInstance]);
 
   return (
     <ArtistSectionContainer id="bio">

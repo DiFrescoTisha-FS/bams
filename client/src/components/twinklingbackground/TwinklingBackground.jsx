@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import styled, { keyframes } from "styled-components";
-import cloudinaryInstance from '../utils/cloudinarySetup';
+import useCloudinary from '../../hooks/useCloudinary';
 
 // Keyframes for animations
 const moveTwinkBack = keyframes`
@@ -141,7 +141,7 @@ const createMeteors = (count) => {
 // Main component
 const TwinklingBackground = () => {
 
-  const cloudinary = useCloudinary();
+  const cloudinaryInstance = useCloudinary();
 
   const starsImageUrl = useMemo(() => {
     return cloudinaryInstance.url("stars_yyxw8j", {
@@ -150,16 +150,16 @@ const TwinklingBackground = () => {
         // Any other transformations
       ],
     });
-  }, [cloudinary]);
+  }, [cloudinaryInstance]);
 
   const twinklingImageUrl = useMemo(() => {
-    return cloudinary.url("twinkling_ywyajn", {
+    return cloudinaryInstance.url("twinkling_ywyajn", {
       transformation: [
         { width: "auto", dpr: "auto", crop: "scale" },
         // Any other transformations
       ],
     });
-  }, [cloudinary]);
+  }, [cloudinaryInstance]);
 
   const starBoxShadow = generateStars(300);
   const meteors = createMeteors(5);

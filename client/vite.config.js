@@ -6,19 +6,17 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: parseInt(process.env.VITE_PORT, 10) || 5173,
-    watch: {
-      usePolling: true,
-    },
     proxy: {
-      '/api': {
-        target: process.env.VITE_API_URL || 'http://localhost:4008',
+      '/auth': {
+        target: 'http://localhost:4008',
         changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+        rewrite: (path) => path.replace(/^\/auth/, '/auth'),
+      },
+      '/api': {
+        target: 'http://localhost:4008',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '/api'),
       },
     },
-  },
-  define: {
-    'process.env': process.env,
   },
 });

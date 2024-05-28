@@ -3,7 +3,7 @@ import axios from "axios";
 import Rating from "react-rating-stars-component";
 import { BsSendFill } from "react-icons/bs";
 import { useAuthContext } from '../../contexts/AuthContext';
-import cloudinaryInstance from '../utils/cloudinarySetup';
+import useCloudinary from '../../hooks/useCloudinary';
 import PropTypes from 'prop-types';
 import {
   SectionContainer,
@@ -23,7 +23,7 @@ import {
 const CommentSection = React.memo(({ currentUser }) => {
   const { dispatch, setErrorMessage, clearErrorMessage, setSuccessMessage, clearSuccessMessage } = useAuthContext();
 
-  const cloudinary = useCloudinary();
+  const cloudinaryInstance = useCloudinary();
 
   const desktopUrl = useMemo(() => cloudinaryInstance.url("COMMENTBG_2_mctqkg", {
     transformation: [
@@ -31,7 +31,7 @@ const CommentSection = React.memo(({ currentUser }) => {
       { quality: "auto:good" },
       { fetch_format: "auto" },
     ],
-  }), []);
+  }), [cloudinaryInstance]);
 
   const contentImageUrl = useMemo(() => cloudinaryInstance.url("bam_ctu4i6", {
     transformation: [
@@ -39,7 +39,7 @@ const CommentSection = React.memo(({ currentUser }) => {
       { quality: "auto" },
       { fetch_format: "auto" },
     ],
-  }), []);
+  }), [cloudinaryInstance]);
 
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
@@ -161,7 +161,10 @@ const CommentSection = React.memo(({ currentUser }) => {
 CommentSection.displayName = 'CommentSection';
 
 CommentSection.propTypes = {
-  currentUser: PropTypes.any
+  currentUser: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool
+  ])
 };
 
 export default CommentSection;

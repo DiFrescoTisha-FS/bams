@@ -1,23 +1,10 @@
-# Stage 1: Build the server
-FROM node:20-alpine as build
+FROM node:16.17.1-alpine3.16 as build
+WORKDIR /usr/app
+COPY . /usr/app
+RUN npm ci
+RUN npm run build
 
-# Create a user with permissions to run the app
-RUN addgroup app && adduser -S -G app app
-
-# Set the working directory
-WORKDIR /app
-
-# Copy package.json and package-lock.json
-COPY server/package*.json ./
-
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the server files
-COPY server .
-
-# Expose port 4008
-EXPOSE 4008
-
-# Start the server
-CMD ["npm", "start"]
+FROM nginx:1.23.1-alpine
+EXPOSE 80
+COPY ./docker/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /usr/app/dist /usr/share/nginx/html

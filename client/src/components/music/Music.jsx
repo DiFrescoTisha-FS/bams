@@ -1,5 +1,5 @@
 import { useState, useMemo, memo } from "react";
-import cloudinaryInstance from '../utils/cloudinarySetup';
+import useCloudinary from '../../hooks/useCloudinary';
 import useIsMobile from '../../hooks/useIsMobile'; 
 import {
   ImgWrap,
@@ -23,7 +23,7 @@ import {
 const MusicSection = memo(() => {
   const [isHovered, setIsHovered] = useState(false);
   const isMobile = useIsMobile();
-  const cloudinary = useCloudinary();
+  const cloudinaryInstance = useCloudinary();
 
   const desktopUrl = useMemo(() => cloudinaryInstance.url("MUSICBG_2_zy5clw", {
     transformation: [
@@ -36,10 +36,10 @@ const MusicSection = memo(() => {
   const mobileUrl = useMemo(() => cloudinaryInstance.url("musicTablet_vlliat", {
     transformation: [
       { width: 480, crop: "scale" },
-      { quality: "auto:good" },
+      { quality: "auto" },
       { fetch_format: "auto" },
     ],
-  }), [cloudinary]);
+  }), [cloudinaryInstance]);
 
   return (
     <MusicSectionContainer id="music">

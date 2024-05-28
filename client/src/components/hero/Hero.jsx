@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { css } from "styled-components";
 import { media_queries } from "../../utils/media_queries";
 import EarthCanvas from "../canvas/EarthCanvas";
-import cloudinaryInstance from '../utils/cloudinarySetup';
+import useCloudinary from '../../hooks/useCloudinary';
 import "../../styles/global.css";
 import {
   SharedSectionWrapper,
@@ -23,7 +23,7 @@ const HeroSection = () => {
   const sectionRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
 
-  const cloudinary = useCloudinary();
+  const cloudinaryInstance = useCloudinary();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -72,9 +72,9 @@ const HeroSection = () => {
           zIndex="3"
         />
       </SectionBg>
-      {/* <EarthCanvasContainer>
+      <EarthCanvasContainer>
         <EarthCanvas />
-      </EarthCanvasContainer> */}
+      </EarthCanvasContainer>
       <SharedSectionWrapper
         $customStyle={css`
           padding-top: 3rem;

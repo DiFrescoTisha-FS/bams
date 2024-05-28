@@ -1,6 +1,6 @@
 // hooks/useCloudinary.js
 import { useMemo } from 'react';
-import cloudinaryInstance from '../utils/cloudinarySetup'; // Adjust the import path as necessary
+import cloudinaryInstance from '../utils/cloudinarySetup';
 
 const useCloudinary = () => {
   return useMemo(() => cloudinaryInstance, []);

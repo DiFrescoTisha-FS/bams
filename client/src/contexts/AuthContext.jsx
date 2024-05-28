@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchAuthStatus = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/status`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/status`, {
           withCredentials: true,
           headers: {
             'Cache-Control': 'no-cache',

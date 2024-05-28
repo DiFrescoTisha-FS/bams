@@ -5,7 +5,8 @@ const router = express.Router();
 
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 
-router.get('/api/auth/status', (req, res) => {
+router.get('/auth/status', (req, res) => {
+  console.log('API is working');
   console.log("Checking authentication status");
   try {
     if (req.isAuthenticated()) {

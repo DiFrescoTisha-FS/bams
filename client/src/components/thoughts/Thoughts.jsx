@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import cloudinaryInstance from '../utils/cloudinarySetup';
+import useCloudinary from '../../hooks/useCloudinary';
 import Tooltip from "../tooltip/Tooltip";
 import {
   ThoughtsContainer,
@@ -107,7 +107,7 @@ const Thoughts = () => {
     specialPosition: "default",
   });
 
-  const cloudinary = useCloudinary();
+  const cloudinaryInstance = useCloudinary();
 
   const desktopUrl = useMemo(() => cloudinaryInstance.url("THOUGHTSDDD_2_htcj9g", {
     transformation: [
@@ -115,7 +115,7 @@ const Thoughts = () => {
       { quality: "auto:good" },
       { fetch_format: "auto" },
     ],
-  }), [cloudinary]);
+  }), [cloudinaryInstance]);
 
   const mobileUrl = useMemo(() => cloudinaryInstance.url("mobile103_rxzgre", {
     transformation: [
@@ -123,7 +123,7 @@ const Thoughts = () => {
       { quality: "auto:good" },
       { fetch_format: "auto" },
     ],
-  }), [cloudinary]);
+  }), [cloudinaryInstance]);
 
   const contentImageUrl = useMemo(() => cloudinaryInstance.url("tattoofingers_hdvyyn_emezhw", {
     width: 455,
@@ -132,7 +132,7 @@ const Thoughts = () => {
     quality: "auto",
     fetch_format: "auto",
     secure: true,
-  }), [cloudinary]);
+  }), [cloudinaryInstance]);
 
   const handleAreaEnter = (area) => {
     setTooltipInfo({

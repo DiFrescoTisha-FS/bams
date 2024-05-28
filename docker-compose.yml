@@ -1,0 +1,17 @@
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
+      - "4008:4008"
+
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=mongodb+srv://tishd7:MihiaBFL68@fullstack.hkhucia.mongodb.net/?retryWrites=true&w=majority&appName=fullstack
+      - SESSION_SECRET=xg5St2ygd+mCIrMOjSomZ77kPpGK+yaDmVvvHf+z2aw4smGrmoKi1QyaPzRvaaXYJh4cN5uGf9oebpTzhmgt1w==
+      - CLOUDINARY_NAME=djqw1de3s
+      - CLOUDINARY_KEY=152654976184646
+      - CLOUDINARY_SECRET=IIB4wy5vb-BMnITnR583sd6MxLM
