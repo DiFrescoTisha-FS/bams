@@ -14,8 +14,7 @@ const MongoStore = require('connect-mongo');
 const passport = require('./api/auth/auth.js');
 const cors = require('cors');
 
-const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development';
-dotenv.config({ path: path.resolve(__dirname, envFile) });
+dotenv.config({ path: path.resolve(__dirname, '.env.production') });
 
 console.log('Cloudinary Name:', process.env.CLOUDINARY_NAME);
 
@@ -27,7 +26,7 @@ const port = process.env.PORT || 4008;
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_NAME,
     api_key: process.env.CLOUDINARY_KEY,
-    api_secret: process.env.CLOUDINARY_SECRET,
+    api_secret: process     .env.CLOUDINARY_SECRET,
     secure: true,
 });
 
@@ -73,14 +72,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Define API routes before serving static files
-app.use('/api', routes); // Ensure routes are prefixed with /api
+app.use('/', routes);
 
 // Serve static files from the client/dist directory
 app.use(express.static(path.join(__dirname, 'client/dist')));
 
 // Handle all other routes by serving the index.html file
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
 });
 
 // Conditional middlewares and settings for production
@@ -88,17 +87,6 @@ if (process.env.NODE_ENV === 'production') {
     app.use(compression());
     app.use(helmet());
 }
-
-// Test database endpoint
-app.get('/test-db', async (req, res) => {
-    try {
-        const admin = new mongoose.mongo.Admin(mongoose.connection.db);
-        const info = await admin.serverStatus();
-        res.status(200).json(info);
-    } catch (err) {
-        res.status(500).json({ error: 'Failed to retrieve database status', details: err });
-    }
-});
 
 // Error handler
 function errorHandler(err, req, res, next) {
@@ -116,3 +104,4 @@ app.use(errorHandler);
 app.listen(port, () => {
     console.log(`Server is running in ${process.env.NODE_ENV} mode on port ${port}`);
 });
+

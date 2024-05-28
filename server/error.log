@@ -43,3 +43,5 @@
 {"level":"error","message":"Error: ENOENT: no such file or directory, stat '/Users/tishadifresco/Desktop/wob/server/dist/index.html'","timestamp":"2024-05-24 13:40:26"}
 {"level":"error","message":"Error: ENOENT: no such file or directory, stat '/Users/tishadifresco/Desktop/wob/server/dist/index.html'","timestamp":"2024-05-24 13:41:06"}
 {"level":"error","message":"Error: ENOENT: no such file or directory, stat '/Users/tishadifresco/Desktop/wob/server/dist/index.html'","timestamp":"2024-05-24 13:41:06"}
+{"level":"error","message":"Error: Not allowed by CORS","timestamp":"2024-05-28 19:28:35"}
+{"level":"error","message":"Error: Not allowed by CORS","timestamp":"2024-05-28 19:28:35"}

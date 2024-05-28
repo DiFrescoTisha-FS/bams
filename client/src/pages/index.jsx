@@ -1,4 +1,3 @@
-// Home.jsx
 import React, { useEffect, useState, Suspense } from "react";
 import { useAuthContext } from "../contexts/AuthContext";
 import { usePageVisibility } from "../hooks/usePageVisibility";
@@ -16,6 +15,7 @@ const CommentSection = React.lazy(() => import("../components/commentsection/Com
 
 const Home = () => {
   const { authState, handleSignIn, handleSignOut } = useAuthContext();
+
   const isVisible = usePageVisibility();
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);

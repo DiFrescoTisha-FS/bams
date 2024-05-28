@@ -31,11 +31,12 @@ router.get('/auth/status', (req, res) => {
 // This route triggers the login process
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
-  res.redirect(FRONTEND_URL);
-});
+router.get('/auth/google/callback', passport.authenticate('google', {
+  failureRedirect: '/',
+  successRedirect: FRONTEND_URL,
+}));
 
-router.get('/auth/logout', (req, res, next) => { 
+router.get('/auth/logout', (req, res, next) => {
   req.logout(function (err) {
     if (err) { return next(err); }
     req.session.destroy((err) => {
