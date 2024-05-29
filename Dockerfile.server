@@ -1,9 +1,36 @@
-# Dockerfile for server
+# Stage 1: Build the React app
+FROM node:16.17.1-alpine3.16 as build
+WORKDIR /app
 
+# Copy client package files
+COPY client/package*.json ./client/
+WORKDIR /app/client
+RUN npm install
+
+# Copy and build the client app
+COPY client/ ./
+RUN npm run build
+
+# Stage 2: Set up the server
 FROM node:16.17.1-alpine3.16
-WORKDIR /usr/app
-COPY package*.json ./
-RUN npm ci
-COPY . .
+WORKDIR /app
+
+# Copy server package files
+COPY server/package*.json ./server/
+WORKDIR /app/server
+RUN npm install
+
+# Copy server files
+COPY server/ ./
+
+# Copy client build to server static files directory
+COPY --from=build /app/client/dist ./client/dist
+
+# Set environment variables (example)
+ENV NODE_ENV=production
+
+# Expose the port
 EXPOSE 4008
+
+# Start the server
 CMD ["node", "server.js"]
