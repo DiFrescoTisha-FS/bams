@@ -2,7 +2,6 @@ const express = require('express');
 const dotenv = require('dotenv');
 const path = require('path');
 const connectDB = require('./api/database/database.js');
-const mongoose = require('mongoose');
 const cloudinary = require('cloudinary').v2;
 const helmet = require('helmet');
 const compression = require('compression');
@@ -16,13 +15,12 @@ const cors = require('cors');
 
 dotenv.config({ path: path.resolve(__dirname, '.env.production') });
 
-console.log('Cloudinary Name:', process.env.CLOUDINARY_NAME);
-
 const app = express();
 connectDB();
 
 const port = process.env.PORT || 4008;
 
+// Cloudinary configuration
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_NAME,
     api_key: process.env.CLOUDINARY_KEY,
@@ -30,6 +28,7 @@ cloudinary.config({
     secure: true,
 });
 
+// CORS configuration
 const allowedOrigins = [
     'http://localhost:5173',
     'https://bamvsthewrld.com',
@@ -54,7 +53,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // Session configuration
 app.use(session({
-  name: 'sessionId', // Customize your session cookie name
+  name: 'connect.sid', // This should match the cookie name expected by the client
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
@@ -86,9 +85,7 @@ app.get('*', (req, res) => {
 // Conditional middlewares and settings for production
 if (process.env.NODE_ENV === 'production') {
     app.use(compression());
-    app.use(helmet({
-        contentSecurityPolicy: false,
-    }));
+    app.use(helmet());
 }
 
 // Error handler
