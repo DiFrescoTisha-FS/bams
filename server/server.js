@@ -53,9 +53,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Session configuration
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
-
 app.use(session({
   name: 'sessionId', // Customize your session cookie name
   secret: process.env.SESSION_SECRET,
@@ -73,7 +70,6 @@ app.use(session({
   })
 }));
 
-
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -90,7 +86,9 @@ app.get('*', (req, res) => {
 // Conditional middlewares and settings for production
 if (process.env.NODE_ENV === 'production') {
     app.use(compression());
-    app.use(helmet());
+    app.use(helmet({
+        contentSecurityPolicy: false,
+    }));
 }
 
 // Error handler
@@ -109,4 +107,3 @@ app.use(errorHandler);
 app.listen(port, () => {
     console.log(`Server is running in ${process.env.NODE_ENV} mode on port ${port}`);
 });
-
