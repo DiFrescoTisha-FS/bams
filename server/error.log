@@ -45,3 +45,4 @@
 {"level":"error","message":"Error: ENOENT: no such file or directory, stat '/Users/tishadifresco/Desktop/wob/server/dist/index.html'","timestamp":"2024-05-24 13:41:06"}
 {"level":"error","message":"Error: Not allowed by CORS","timestamp":"2024-05-28 19:28:35"}
 {"level":"error","message":"Error: Not allowed by CORS","timestamp":"2024-05-28 19:28:35"}
+{"level":"error","message":"Error: ENOENT: no such file or directory, stat '/Users/tishadifresco/Desktop/bams/server/client/dist/index.html'","timestamp":"2024-05-28 21:23:28"}

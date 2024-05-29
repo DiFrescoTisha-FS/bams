@@ -1,10 +1,23 @@
-FROM node:16.17.1-alpine3.16 as build
-WORKDIR /usr/app
-COPY . /usr/app
-RUN npm ci
-RUN npm run build
+# Use a node image
+FROM node:16.17.1-alpine3.16
 
-FROM nginx:1.23.1-alpine
-EXPOSE 80
-COPY ./docker/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /usr/app/dist /usr/share/nginx/html
+# Create and set working directory
+WORKDIR /usr/app
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy all server files
+COPY . .
+
+# Set environment variables
+ENV NODE_ENV=production
+
+# Expose the port the app runs on
+EXPOSE 4008
+
+# Start the app
+CMD ["npm", "start"]
