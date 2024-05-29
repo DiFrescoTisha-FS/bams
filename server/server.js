@@ -28,7 +28,6 @@ cloudinary.config({
     secure: true,
 });
 
-// CORS configuration
 const allowedOrigins = [
     'http://localhost:5173',
     'https://bamvsthewrld.com',
@@ -43,17 +42,42 @@ const corsOptions = {
             callback(new Error('Not allowed by CORS'));
         }
     },
-    credentials: true,
+    credentials: true, // Ensure credentials are allowed
 };
 
 app.use(cors(corsOptions));
+
 app.use(morgan('combined', { stream: { write: (message) => logger.info(message.trim()) } }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Session configuration
+const store = MongoStore.create({
+    mongoUrl: process.env.MONGO_URI,
+    ttl: 14 * 24 * 60 * 60 // 14 days
+});
+
+store.on('create', (sessionId) => {
+    console.log('Session created:', sessionId);
+});
+
+store.on('touch', (sessionId) => {
+    console.log('Session touched:', sessionId);
+});
+
+store.on('update', (sessionId) => {
+    console.log('Session updated:', sessionId);
+});
+
+store.on('set', (sessionId) => {
+    console.log('Session set:', sessionId);
+});
+
+store.on('destroy', (sessionId) => {
+    console.log('Session destroyed:', sessionId);
+});
+
 app.use(session({
-  name: 'connect.sid', // This should match the cookie name expected by the client
+  name: 'sessionId', // Customize your session cookie name
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
@@ -63,11 +87,26 @@ app.use(session({
     sameSite: 'None', // Important for CORS requests
     maxAge: 1000 * 60 * 60 * 24 // 1 day
   },
-  store: MongoStore.create({
-    mongoUrl: process.env.MONGO_URI,
-    ttl: 14 * 24 * 60 * 60 // 14 days
-  })
+  store: store
 }));
+
+// // Session configuration
+// app.use(session({
+//   name: 'connect.sid', // This should match the cookie name expected by the client
+//   secret: process.env.SESSION_SECRET,
+//   resave: false,
+//   saveUninitialized: false,
+//   cookie: {
+//     httpOnly: true,
+//     secure: process.env.NODE_ENV === 'production', // Ensure to use HTTPS in production
+//     sameSite: 'None', // Important for CORS requests
+//     maxAge: 1000 * 60 * 60 * 24 // 1 day
+//   },
+//   store: MongoStore.create({
+//     mongoUrl: process.env.MONGO_URI,
+//     ttl: 14 * 24 * 60 * 60 // 14 days
+//   })
+// }));
 
 app.use(passport.initialize());
 app.use(passport.session());
