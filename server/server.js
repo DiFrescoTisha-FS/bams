@@ -53,20 +53,26 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Session configuration
-app.use(
-    session({
-        store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
-        secret: process.env.SESSION_SECRET,
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-            secure: process.env.NODE_ENV === 'production',
-            httpOnly: true,
-            maxAge: 1000 * 60 * 60 * 24, // 24 hours
-            sameSite: 'lax',
-        },
-    })
-);
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+
+app.use(session({
+  name: 'sessionId', // Customize your session cookie name
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', // Ensure to use HTTPS in production
+    sameSite: 'None', // Important for CORS requests
+    maxAge: 1000 * 60 * 60 * 24 // 1 day
+  },
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGO_URI,
+    ttl: 14 * 24 * 60 * 60 // 14 days
+  })
+}));
+
 
 app.use(passport.initialize());
 app.use(passport.session());

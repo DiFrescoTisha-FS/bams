@@ -39,11 +39,12 @@ const Home = () => {
 
   useEffect(() => {
     console.log("HOME component mounted");
+    console.log("Current Auth State:", authState);
 
     return () => {
       console.log("HOME component UNmounted");
     };
-  }, []);
+  }, [authState]);
 
   return (
     <>
