@@ -61,11 +61,12 @@ app.use(session({
   cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'Lax', // Use 'Lax' for local development
+      sameSite: 'None', // Use 'Lax' for local development
       maxAge: 1000 * 60 * 60 * 24, // 1 day
   },
 }));
 
+require('./api/auth/auth'); // Ensure this path initializes the Google strategy
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -73,6 +74,12 @@ const authRoutes = require('./api/routes/routes'); // Ensure this path is correc
 app.use('/auth', authRoutes);
 
 app.use('/', routes);
+
+app.use((req, res, next) => {
+    console.log('Session ID:', req.sessionID);
+    next();
+  });
+  
 
 app.use(express.static(path.join(__dirname, 'client/dist')));
 
