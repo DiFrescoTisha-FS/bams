@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import { useAuthContext } from './contexts/AuthContext';
-import Home from './pages/index';
+import Home from './pages';
 
 const App = () => {
   const { authState } = useAuthContext();

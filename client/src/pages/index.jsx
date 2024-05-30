@@ -1,6 +1,8 @@
 import React, { useEffect, useState, Suspense } from "react";
-import { useAuthContext } from "../contexts/AuthContext";
-import { usePageVisibility } from "../hooks/usePageVisibility";
+import { useNavigate } from 'react-router-dom';
+import useAuthContext from '../hooks/useAuthContext';
+import { usePageVisibility } from '../hooks/usePageVisibility';
+import axios from 'axios';
 import ArtistInfo from "../components/artistInfo/Artist";
 import TwinklingBackground from "../components/twinklingbackground/TwinklingBackground";
 import HeroSection from "../components/hero/Hero";
@@ -13,13 +15,35 @@ const Music = React.lazy(() => import("../components/music/Music"));
 const NewSection = React.lazy(() => import("../components/new/NewSection"));
 const CommentSection = React.lazy(() => import("../components/commentsection/CommentSection"));
 
-const Home = () => {
+const Home = ({ currentUser }) => {
+  const navigate = useNavigate();
   const { authState, handleSignIn, handleSignOut } = useAuthContext();
-
   const isVisible = usePageVisibility();
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const currentUser = authState?.user;
+
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/status`, {
+          withCredentials: true,
+          headers: {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache',
+            'Expires': '0',
+          },
+        });
+        // Remove this navigation if it exists
+        // if (response.data.isAuthenticated) {
+        //   navigate('/auth-status'); // Redirect to auth status page if already authenticated
+        // }
+      } catch (error) {
+        console.error('Error checking auth status:', error);
+      }
+    };
+
+    checkAuthStatus();
+  }, [navigate]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -45,6 +69,10 @@ const Home = () => {
       console.log("HOME component UNmounted");
     };
   }, [authState]);
+
+  if (authState.loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
