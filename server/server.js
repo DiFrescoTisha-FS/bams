@@ -48,7 +48,11 @@ app.use(express.urlencoded({ extended: false }));
 //     mongoUrl: process.env.MONGO_URI,
 //     ttl: 14 * 24 * 60 * 60 // 14 days
 // });
-
+app.use((req, res, next) => {
+    console.log('Before session middleware:', req.sessionID, req.session);
+    next();
+});
+  
 app.use(session({
   name: 'connect.sid',
   secret: process.env.SESSION_SECRET,
@@ -66,6 +70,11 @@ app.use(session({
   },
 }));
 
+app.use((req, res, next) => {
+    console.log('After session middleware:', req.sessionID, req.session);
+    next();
+  });
+
 require('./api/auth/auth'); // Ensure this path initializes the Google strategy
 app.use(passport.initialize());
 app.use(passport.session());
@@ -73,7 +82,10 @@ app.use(passport.session());
 const authRoutes = require('./api/routes/routes'); // Ensure this path is correct
 app.use('/auth', authRoutes);
 
-app.use('/', routes);
+app.get('/', (req, res) => {
+    console.log('In root route:', req.sessionID, req.session);
+    res.send('Server is up and running!');
+  });
 
 app.use((req, res, next) => {
     console.log('Session ID:', req.sessionID);

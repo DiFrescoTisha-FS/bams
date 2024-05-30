@@ -6,6 +6,7 @@ const router = express.Router();
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 
 router.get('/status', (req, res) => {
+  console.log('In /status route:', req.sessionID, req.session);
   console.log('Session ID:', req.sessionID);
   console.log('Session:', req.session);
   console.log('Authenticated:', req.isAuthenticated());
@@ -34,6 +35,7 @@ router.get('/google/callback', passport.authenticate('google', {
 router.get('/logout', (req, res) => {
   req.logout(function(err) {
     if (err) { return next(err); }
+    console.log('After logout:', req.sessionID, req.session);
     res.redirect('/');
   });
 });
