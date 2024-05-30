@@ -10,9 +10,6 @@ const UserComponent = ({ isMobile, handleSignIn, handleSignOut }) => {
   const dropdownRef = useRef();
   const currentUser = authState?.user;
 
-  console.log("Dropdown Is Open:", dropdownOpen);
-  console.log("Current User in UserComponent:", currentUser);
-
   const toggleDropdown = useCallback(() => {
     setDropdownOpen(prevDropdownOpen => !prevDropdownOpen);
   }, []);

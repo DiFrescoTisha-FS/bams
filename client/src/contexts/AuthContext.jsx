@@ -10,10 +10,9 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchAuthStatus = async () => {
-        console.log('Fetching auth status from:', import.meta.env.VITE_API_URL); // Log the API URL for debugging
         try {
             const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/status`, {
-                withCredentials: true, // Include credentials in requests
+                withCredentials: true,
                 headers: {
                     'Cache-Control': 'no-cache',
                     'Pragma': 'no-cache',
@@ -26,7 +25,6 @@ export const AuthProvider = ({ children }) => {
                 setAuthState({ isAuthenticated: false, user: null, message: "", errorMessage: "" });
             }
         } catch (error) {
-            console.error('Error checking auth status:', error);
             setAuthState({ isAuthenticated: false, user: null, message: "", errorMessage: "Failed to check authentication status." });
         }
     };

@@ -5,49 +5,36 @@ const router = express.Router();
 
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 
-router.get('/auth/status', (req, res) => {
+router.get('/status', (req, res) => {
+  console.log('Session ID:', req.sessionID);
   console.log('Session:', req.session);
+  console.log('Authenticated:', req.isAuthenticated());
   console.log('User:', req.user);
-  console.log('API is working');
-  console.log("Checking authentication status");
-  try {
-    if (req.isAuthenticated()) {
-      console.log("User is authenticated:", req.user);
-      res.json({
-        isAuthenticated: true,
-        user: {
-          id: req.user._id,
-          name: req.user.name,
-          avatar: req.user.picture,
-        },
-      });
-    } else {
-      res.json({ isAuthenticated: false });
-    }
-  } catch (error) {
-    console.error('Error checking auth status:', error);
-    res.status(500).json({ error: 'Internal server error' });
+  if (req.isAuthenticated()) {
+    res.json({
+      isAuthenticated: true,
+      user: {
+        id: req.user._id,
+        name: req.user.name,
+        avatar: req.user.picture,
+      },
+    });
+  } else {
+    res.json({ isAuthenticated: false });
   }
 });
 
-// This route triggers the login process
-router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-router.get('/auth/google/callback', passport.authenticate('google', {
+router.get('/google/callback', passport.authenticate('google', {
   failureRedirect: '/',
   successRedirect: FRONTEND_URL,
 }));
 
-router.get('/auth/logout', (req, res, next) => {
-  req.logout(function (err) {
+router.get('/logout', (req, res) => {
+  req.logout(function(err) {
     if (err) { return next(err); }
-    req.session.destroy((err) => {
-      if (err) {
-        return res.status(500).send('Failed to log out.');
-      }
-      res.clearCookie('connect.sid'); // Clear the cookie that was used to handle the session
-      res.redirect('/'); // Optionally redirect to the homepage or login page
-    });
+    res.redirect('/');
   });
 });
 
@@ -66,7 +53,6 @@ router.post("/comment-rating", async (req, res) => {
     const savedCommentRating = await newCommentRating.save();
     res.status(201).json(savedCommentRating);
   } catch (error) {
-    console.error("Error saving comment and rating:", error);
     res.status(500).json({ message: "Internal Server Error", error: error });
   }
 });
@@ -76,7 +62,6 @@ router.get('/', (req, res) => {
 });
 
 router.use((err, req, res, next) => {
-  console.error(err);
   res.status(err.status || 500).json({
     error: err.message || 'Internal Server Error',
   });

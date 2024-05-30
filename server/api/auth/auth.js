@@ -1,14 +1,16 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const User = require('../models/user');
-const Token = require('../models/token');
+const User = require('../models/user'); // Ensure this path is correct
+const dotenv = require('dotenv');
+
+dotenv.config(); // Ensure environment variables are loaded
 
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: `${process.env.REDIRECT_URL}`,
+  callbackURL: process.env.REDIRECT_URL,
 },
-async function (accessToken, refreshToken, profile, done) {
+async (accessToken, refreshToken, profile, done) => {
   try {
     console.log("Google profile:", profile);
     const user = await User.findOneAndUpdate(
@@ -22,18 +24,7 @@ async function (accessToken, refreshToken, profile, done) {
       },
       { new: true, upsert: true, runValidators: true }
     );
-
     console.log("User found or created:", user);
-
-    const token = new Token({
-      userId: user._id,
-      accessToken: accessToken,
-      refreshToken: refreshToken,
-      expiration: new Date(Date.now() + 3600000),
-    });
-
-    await token.save();
-    console.log("Token saved successfully");
     done(null, user);
   } catch (err) {
     console.error("Error in Google Strategy:", err);
