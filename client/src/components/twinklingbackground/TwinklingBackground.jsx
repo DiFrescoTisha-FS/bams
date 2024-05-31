@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes } from 'styled-components';
 import useCloudinary from '../../hooks/useCloudinary';
 
 // Keyframes for animations
@@ -43,7 +43,7 @@ const BackgroundContainer = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 75%; /* Adjust if necessary */
+  height: 100%; /* Adjust if necessary */
   overflow: hidden;
   z-index: 0; /* Behind other content */
 `;
@@ -140,22 +140,21 @@ const createMeteors = (count) => {
 
 // Main component
 const TwinklingBackground = () => {
-
   const cloudinaryInstance = useCloudinary();
 
   const starsImageUrl = useMemo(() => {
-    return cloudinaryInstance.url("stars_yyxw8j", {
+    return cloudinaryInstance.image('stars_yyxw8j').toURL({
       transformation: [
-        { width: "auto", dpr: "auto", crop: "scale" },
+        { width: 'auto', dpr: 'auto', crop: 'scale' },
         // Any other transformations
       ],
     });
   }, [cloudinaryInstance]);
 
   const twinklingImageUrl = useMemo(() => {
-    return cloudinaryInstance.url("twinkling_ywyajn", {
+    return cloudinaryInstance.image('twinkling_ywyajn').toURL({
       transformation: [
-        { width: "auto", dpr: "auto", crop: "scale" },
+        { width: 'auto', dpr: 'auto', crop: 'scale' },
         // Any other transformations
       ],
     });

@@ -20,15 +20,26 @@ const Sidebar = ({ isOpen, toggle, currentUser, handleSignIn, handleSignOut }) =
       toggle();
     }
   };
+
   return (
-    <SidebarContainer isOpen={isOpen} onClick={handleClick}>
-      <Icon onClick={handleClick}>
+    <SidebarContainer isOpen={isOpen} onClick={toggle}>
+      <Icon onClick={toggle}>
         <CloseIcon />
       </Icon>
       <SidebarWrapper>
         <SidebarMenu>
           {["home", "bio", "music", "new", "thoughts", "comments"].map((item, index) => (
-            <SidebarLink key={index} to={item} smooth duration={500} spy exact="true" offset={-80} onClick={toggle}>
+            <SidebarLink 
+              key={index} 
+              to={item} 
+              smooth={true} 
+              duration={500} 
+              spy={true} 
+              exact="true" 
+              offset={-80} 
+              onClick={toggle}
+              activeClass="active"
+            >
               {item.charAt(0).toUpperCase() + item.slice(1)}
             </SidebarLink>
           ))}
@@ -36,7 +47,6 @@ const Sidebar = ({ isOpen, toggle, currentUser, handleSignIn, handleSignOut }) =
         <SideBtnWrap>
           <UserComponent 
             isMobile={true} 
-            // handleClick={handleClick} 
             handleSignIn={handleSignIn} 
             handleSignOut={handleSignOut} 
             currentUser={currentUser}

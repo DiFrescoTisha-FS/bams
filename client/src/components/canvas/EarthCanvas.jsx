@@ -2,16 +2,17 @@ import { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import CanvasLoader from "../Loader";
-import { EarthCanvasContainer } from "../StyledComponents";
+import { EarthCanvasContainer, DirectiveTextWrapper, RotateIcon } from "../StyledComponents";
 
-const Earth = () => {
+const Earth = ({ scale }) => {
   const earth = useGLTF("./planet/scene.gltf");
-  return <primitive object={earth.scene} scale={3} position={[0, 0, 0]} />;
+  return <primitive object={earth.scene} scale={scale} position={[0, 0, 0]} />;
 };
 
 const EarthCanvas = () => {
-  const [isInView, setIsInView] = useState(false); // Default to false to prevent auto-rotate initially
+  const [isInView, setIsInView] = useState(false);
   const canvasContainerRef = useRef(null);
+  const [scale, setScale] = useState(3);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -34,20 +35,41 @@ const EarthCanvas = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width <= 430) {
+        setScale(3);
+      } else if (width <= 768) {
+        setScale(5);
+      } else {
+        setScale(3);
+      }
+      console.log(`Width: ${width}, Scale: ${scale}`);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <EarthCanvasContainer ref={canvasContainerRef}>
-      <Canvas
-        camera={{ fov: 75, position: [0, 0, 5] }}
-      >
+      <Canvas camera={{ fov: 75, position: [0, 0, 5] }}>
         <Suspense fallback={<CanvasLoader />}>
           <ambientLight intensity={0.5} />
           <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
           <pointLight position={[-10, -10, -10]} />
           <OrbitControls autoRotate={isInView} enableZoom={false} />
-          <Earth />
+          <Earth scale={scale} />
           <Preload all />
         </Suspense>
       </Canvas>
+      <DirectiveTextWrapper>
+        <RotateIcon className="text-gray-400" />
+        Rotate
+      </DirectiveTextWrapper>
     </EarthCanvasContainer>
   );
 };

@@ -1,4 +1,4 @@
-import { useState, useMemo, memo } from "react";
+import { useState, useMemo, memo } from 'react';
 import useCloudinary from '../../hooks/useCloudinary';
 import useIsMobile from '../../hooks/useIsMobile'; 
 import {
@@ -8,8 +8,7 @@ import {
   ButtonIcon,
   Music,
   StyledIframe
-} from "../StyledComponents";
-
+} from '../StyledComponents';
 import {
   MusicSectionContainer,
   MusicSectionBg,
@@ -18,28 +17,32 @@ import {
   MusicTextWrapper,
   MusicStyledImage,
   MusicStyledText
-} from "./MusicElements";
+} from './MusicElements';
 
 const MusicSection = memo(() => {
   const [isHovered, setIsHovered] = useState(false);
   const isMobile = useIsMobile();
   const cloudinaryInstance = useCloudinary();
 
-  const desktopUrl = useMemo(() => cloudinaryInstance.url("MUSICBG_2_zy5clw", {
-    transformation: [
-      { width: 1920, crop: "scale" },
-      { quality: "auto:good" },
-      { fetch_format: "auto" },
-    ],
-  }), [cloudinaryInstance]);
+  const desktopUrl = useMemo(() => {
+    return cloudinaryInstance.image('MUSICBG_2_zy5clw').toURL({
+      transformation: [
+        { width: 1920, height: 1600, crop: 'fill' },
+        { quality: 'auto:good' },
+        { fetch_format: 'auto' }
+      ]
+    });
+  }, [cloudinaryInstance]);
 
-  const mobileUrl = useMemo(() => cloudinaryInstance.url("musicTablet_vlliat", {
-    transformation: [
-      { width: 480, crop: "scale" },
-      { quality: "auto" },
-      { fetch_format: "auto" },
-    ],
-  }), [cloudinaryInstance]);
+  const mobileUrl = useMemo(() => {
+    return cloudinaryInstance.image('musicTablet_vlliat').toURL({
+      transformation: [
+        { width: 480, height: 800, crop: 'fill' },
+        { quality: 'auto' },
+        { fetch_format: 'auto' }
+      ]
+    });
+  }, [cloudinaryInstance]);
 
   return (
     <MusicSectionContainer id="music">
@@ -49,7 +52,7 @@ const MusicSection = memo(() => {
           alt="Planets"
           position="absolute"
           width="100%"
-          height="auto"
+          height="100%"
           objectFit="contain"
           top={0}
           left={0}
@@ -63,7 +66,7 @@ const MusicSection = memo(() => {
               <StyledIframe
                 title="iframe"
                 width="100%"
-                height="450px"
+                height="450px" // Default height for larger screens
                 allow="autoplay"
                 loading="lazy"
                 sandbox="allow-scripts allow-same-origin allow-presentation"

@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { css } from "styled-components";
 import { media_queries } from "../../utils/media_queries";
 import EarthCanvas from "../canvas/EarthCanvas";
-import useCloudinary from '../../hooks/useCloudinary';
+import { generateImageUrl } from '../../utils/cloudinarySetup'; // Ensure the correct path
 import "../../styles/global.css";
 import {
   SharedSectionWrapper,
@@ -22,8 +22,6 @@ const HeroSection = () => {
   const [isHovered, setIsHovered] = useState(false);
   const sectionRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
-
-  const cloudinaryInstance = useCloudinary();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -45,11 +43,11 @@ const HeroSection = () => {
     };
   }, []);
 
-  const saturnWebPUrl = cloudinaryInstance.url("backplanet_t2wgdk", { format: "webp" });
-  const earthWebPUrl = cloudinaryInstance.url("earth_mwg9cb", { format: "webp" });
+  const saturnWebPUrl = useMemo(() => generateImageUrl("backplanet_t2wgdk", { format: "webp", width: 500, height: 500 }), []);
+  const earthWebPUrl = useMemo(() => generateImageUrl("earth_mwg9cb", { format: "webp", width: 150, height: 150 }), []);
 
   return (
-    <SectionContainer id="home">
+    <SectionContainer id="home" ref={sectionRef}>
       <SectionBg>
         <StyledImage
           src={saturnWebPUrl}

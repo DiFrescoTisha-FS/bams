@@ -1,4 +1,5 @@
-/* src/styles/global.css */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css');
+
 @font-face {
     font-family: 'Arthemis-PKY27';
     src: url('/fonts/Arthemis-PKY27.woff2') format('woff2'),
@@ -12,27 +13,7 @@
     animation: fadeIn 0.5s ease-in-out;
   }
   
-/* src/components/navbar/Navbar.css */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  background-color: #333;
-}
 
-.navbar button {
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
 
 
 

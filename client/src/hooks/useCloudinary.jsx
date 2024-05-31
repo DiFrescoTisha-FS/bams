@@ -1,9 +1,13 @@
-// hooks/useCloudinary.js
-import { useMemo } from 'react';
-import cloudinaryInstance from '../utils/cloudinarySetup';
+import { Cloudinary } from '@cloudinary/url-gen';
 
 const useCloudinary = () => {
-  return useMemo(() => cloudinaryInstance, []);
+  const cloudinaryInstance = new Cloudinary({
+    cloud: {
+      cloudName: import.meta.env.VITE_CLOUDINARY_NAME, // Ensure this environment variable is set
+    },
+  });
+
+  return cloudinaryInstance;
 };
 
 export default useCloudinary;

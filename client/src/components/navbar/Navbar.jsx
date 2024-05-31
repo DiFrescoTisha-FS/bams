@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { useAuthContext } from "../../contexts/AuthContext";
-import useCloudinary from '../../hooks/useCloudinary';
-import { FaBars } from "react-icons/fa";
-import { IconContext } from "react-icons/lib";
-import { animateScroll as scroll } from "react-scroll";
+import React, { useEffect, useState, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { useAuthContext } from '../../contexts/AuthContext';
+import { generateImageUrl } from '../../utils/cloudinarySetup'; // Ensure the correct path
+import { FaBars } from 'react-icons/fa';
+import { IconContext } from 'react-icons/lib';
+import { animateScroll as scroll } from 'react-scroll';
+import debounce from 'lodash/debounce';
 import {
   NavWrapper,
   NavbarContainer,
@@ -14,9 +15,9 @@ import {
   NavMenu,
   NavLinks,
   NavBtn,
-} from "./NavbarElements";
-import debounce from "lodash/debounce";
-import UserComponent from "../UserComponent";
+  NavItem,
+} from './NavbarElements';
+import UserComponent from '../UserComponent';
 
 const Navbar = ({ toggle, isOpen, handleSignIn, handleSignOut }) => {
   const { authState } = useAuthContext();
@@ -24,14 +25,15 @@ const Navbar = ({ toggle, isOpen, handleSignIn, handleSignOut }) => {
   const [scrollNav, setScrollNav] = useState(false);
   const currentUser = authState?.user;
 
-  const cloudinaryInstance = useCloudinary();
-
-  const logoUrl = cloudinaryInstance.url("logo_qkgu64", {
-    transformation: [{ width: 60, height: 60, gravity: "center", crop: "thumb" }],
-    quality: "auto",
-    fetch_format: "auto",
+  const logoUrl = useMemo(() => generateImageUrl('logo_qkgu64', {
+    width: 60,
+    height: 60,
+    gravity: 'center',
+    crop: 'thumb',
+    format: 'auto',
+    quality: 'auto',
     secure: true,
-  });
+  }), []);
 
   const handleScrollDebounced = debounce(() => {
     setScrollNav(window.scrollY >= 80);
@@ -42,34 +44,30 @@ const Navbar = ({ toggle, isOpen, handleSignIn, handleSignOut }) => {
   }, 200);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScrollDebounced);
-    window.addEventListener("resize", handleResizeDebounced);
+    window.addEventListener('scroll', handleScrollDebounced);
+    window.addEventListener('resize', handleResizeDebounced);
 
     return () => {
       handleScrollDebounced.cancel();
       handleResizeDebounced.cancel();
-      window.removeEventListener("scroll", handleScrollDebounced);
-      window.removeEventListener("resize", handleResizeDebounced);
+      window.removeEventListener('scroll', handleScrollDebounced);
+      window.removeEventListener('resize', handleResizeDebounced);
     };
   }, [handleScrollDebounced, handleResizeDebounced]);
 
-  console.log("Navbar Current User:", currentUser); 
-
   return (
-    <IconContext.Provider value={{ color: "#ac94f4" }}>
+    <IconContext.Provider value={{ color: '#ac94f4' }}>
       <NavWrapper scrollNav={scrollNav}>
         <NavbarContainer>
           <NavLogo to="/" onClick={() => scroll.scrollToTop()}>
             <NavIcon src={logoUrl} alt="logo" loading="lazy" />
           </NavLogo>
-          {isMobile && (
-            <MobileIcon $isOpen={isOpen} onClick={toggle}>
-              <FaBars />
-            </MobileIcon>
-          )}
+          <MobileIcon isOpen={isOpen} onClick={toggle}>
+            <FaBars />
+          </MobileIcon>
           <NavMenu>
-            {["home", "bio", "music", "new", "thoughts", "comments"].map((item, index) => (
-              <li key={index}>
+            {['home', 'bio', 'music', 'new', 'thoughts', 'comments'].map((item, index) => (
+              <NavItem key={index}>
                 <NavLinks
                   to={item}
                   smooth={true}
@@ -78,11 +76,11 @@ const Navbar = ({ toggle, isOpen, handleSignIn, handleSignOut }) => {
                   exact="true"
                   offset={-80}
                   activeClass="active"
-                  onClick={isMobile ? toggle : undefined} // Close the menu on link click
+                  onClick={isMobile ? toggle : undefined}
                 >
                   {item.charAt(0).toUpperCase() + item.slice(1)}
                 </NavLinks>
-              </li>
+              </NavItem>
             ))}
           </NavMenu>
           <NavBtn>

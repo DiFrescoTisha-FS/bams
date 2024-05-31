@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { media_queries } from '../utils/media_queries';
 import { Link } from 'react-scroll';
 import { FaArrowAltCircleDown, FaRocket } from 'react-icons/fa';
+import { TbRotate360 } from "react-icons/tb";
 const maxWidth = "700px";
 
 const sharedStyles = css`
@@ -38,13 +39,34 @@ export const SectionContainer = styled.div`
 `;
 
 // 
+
 export const SectionBg = styled.div`
   position: absolute;
-  height: 860px;
-  max-height: 860px;
   width: 100%;
+  height: 100%;
   background-size: cover;
-  z-index: 2;
+  background-position: center;
+  background-image: ${({ srcSet }) => `url(${srcSet})`};
+
+  @media (max-width: 320px) {
+    background-image: ${({ srcSet }) => srcSet && `url(${srcSet['320w']})`};
+  }
+
+  @media (max-width: 480px) {
+    background-image: ${({ srcSet }) => srcSet && `url(${srcSet['480w']})`};
+  }
+
+  @media (max-width: 800px) {
+    background-image: ${({ srcSet }) => srcSet && `url(${srcSet['800w']})`};
+  }
+
+  @media (max-width: 1200px) {
+    background-image: ${({ srcSet }) => srcSet && `url(${srcSet['1200w']})`};
+  }
+
+  @media (max-width: 1600px) {
+    background-image: ${({ srcSet }) => srcSet && `url(${srcSet['1600w']})`};
+  }
 `;
 
 export const SectionWrapper = styled.div`
@@ -250,28 +272,26 @@ export const BtnWrap = styled.div`
 `;
 
 export const Button = styled(Link)`
-    border-radius: 50px;
-    background: #ac94f4;
-    border: 1px solid #010606;
-    white-space: nowrap;
-    padding: ${({ big }) => (big ? '14px 48px' : '12px 30px')};
-    color: #010606;
-    font-size: ${({ fontBig }) => (fontBig ? '20px' : '16px')};
-    outline: none;
-    border: none;
-    cursor: pointer;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+  border-radius: 50px;
+  background: #ac94f4;
+  border: 1px solid #010606;
+  white-space: nowrap;
+  padding: ${({ big }) => (big ? '14px 48px' : '12px 30px')};
+  color: #010606;
+  font-size: ${({ fontBig }) => (fontBig ? '20px' : '16px')};
+  outline: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+  
+  &:hover {
     transition: all 0.2s ease-in-out;
-    
-    &:hover {
-        transition: all 0.2s ease-in-out;
-        background: #010606;
-        color: #ac94f4;
-        outline: 1px solid #ac94f4;
-        border: 1px solid #ac94f4;
-    }
+    background: #010606;
+    color: #ac94f4;
+  }
 
   ${media_queries.phone`
     font-weight: 300;
@@ -439,8 +459,6 @@ StyledImage.propTypes = {
 
 export default StyledImage;
 
-
-
 export const StyledIframe = styled.iframe`
   width: 100%;
   height: 450px; // Default height for larger screens
@@ -451,28 +469,65 @@ export const StyledIframe = styled.iframe`
 `;
 
 export const EarthCanvasContainer = styled.div`
-position: absolute;
-top: 15%;
-left: 2%;
-width: 400px;
-height: 400px; 
-z-index: 2;
+  position: absolute;
+  top: 15%;
+  left: 2%;
+  width: 400px;
+  height: 400px;
+  z-index: 2;
 
-${media_queries.tablet`
-  width: 200px; /* Smaller width for tablet */
-  height: 200px; /* Smaller height for tablet */
-  top: 15%; /* Center vertically */
-  left: 50%; /* Center horizontally */
-  transform: translate(-50%, -50%); /* Offset the position to truly center the element */
-`}
+  ${media_queries.tablet`
+    width: 200px;
+    height: 200px;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  `}
 
-${media_queries.phone`
-  width: 200px; /* Smaller width for tablet */
-  height: 200px; /* Smaller height for tablet */
-  top: 23%; /* Center vertically */
-  left: 50%; /* Center horizontally */
-  transform: translate(-50%, -50%); /* Offset the position to truly center the element */
-`}
+  ${media_queries.phone`
+    width: 150px;
+    height: 150px;
+    top: 23%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  `}
+
+  ${media_queries.smallPhone`
+    width: 200px;
+    height: 200px;
+    top: 23%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  `}
+`;
+
+export const DirectiveTextWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  position: absolute;
+  top: 400px;
+  left: 10px;
+  z-index: 20;
+
+  ${media_queries.desktop`
+    display: none; // Hide on screens smaller than 1100px
+  `}
+
+  ${media_queries.tablet`
+    display: none; // Ensure it is hidden on tablets
+  `}
+
+  ${media_queries.phone`
+    display: none; // Ensure it is hidden on phones
+  `}
+`;
+
+export const RotateIcon = styled(TbRotate360)`
+  margin-left: 125px;
+  font-size: 48px;
 `;
 
 export const HeroBtnWrapper = styled.div`

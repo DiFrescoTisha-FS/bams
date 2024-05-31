@@ -109,30 +109,36 @@ const Thoughts = () => {
 
   const cloudinaryInstance = useCloudinary();
 
-  const desktopUrl = useMemo(() => cloudinaryInstance.url("THOUGHTSDDD_2_htcj9g", {
-    transformation: [
-      { width: 1920, crop: "scale" },
-      { quality: "auto:good" },
-      { fetch_format: "auto" },
-    ],
-  }), [cloudinaryInstance]);
+  const desktopUrl = useMemo(() => {
+    return cloudinaryInstance.image("THOUGHTSDDD_2_htcj9g").toURL({
+      transformation: [
+        { width: 1920, crop: "scale" },
+        { quality: "auto:good" },
+        { fetch_format: "auto" },
+      ],
+    });
+  }, [cloudinaryInstance]);
 
-  const mobileUrl = useMemo(() => cloudinaryInstance.url("mobile103_rxzgre", {
-    transformation: [
-      { width: 386, crop: "scale" }, // Adjust width for mobile
-      { quality: "auto:good" },
-      { fetch_format: "auto" },
-    ],
-  }), [cloudinaryInstance]);
+  const mobileUrl = useMemo(() => {
+    return cloudinaryInstance.image("mobile103_rxzgre").toURL({
+      transformation: [
+        { width: 386, crop: "scale" },
+        { quality: "auto:good" },
+        { fetch_format: "auto" },
+      ],
+    });
+  }, [cloudinaryInstance]);
 
-  const contentImageUrl = useMemo(() => cloudinaryInstance.url("tattoofingers_hdvyyn_emezhw", {
-    width: 455,
-    height: 455,
-    crop: "fill",
-    quality: "auto",
-    fetch_format: "auto",
-    secure: true,
-  }), [cloudinaryInstance]);
+  const contentImageUrl = useMemo(() => {
+    return cloudinaryInstance.image("tattoofingers_hdvyyn_emezhw-fotor-2024053015658_b7utnn").toURL({
+      transformation: [
+        { width: 455, height: 455, crop: "fill" },
+        { quality: "auto" },
+        { fetch_format: "auto" },
+        { secure: true }
+      ],
+    });
+  }, [cloudinaryInstance]);
 
   const handleAreaEnter = (area) => {
     setTooltipInfo({
@@ -196,7 +202,17 @@ const Thoughts = () => {
               zIndex="10"
             />
           </ThoughtsImgWrap>
+          
           <ThoughtsTextWrapper>
+          <ThoughtsStyledText
+              fontSize="18px"
+              fontWeight="600"
+              color="#fff"
+              marginBottom="0px"
+              hideOnSmallScreens={true}
+            >
+              Click on a planet to play a song!
+            </ThoughtsStyledText>
             <ThoughtsStyledText
               as="p"
               color="#fff"

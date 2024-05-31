@@ -1,16 +1,10 @@
 import React, { useMemo } from 'react';
-import { Cloudinary } from "cloudinary-core";
-import {
-  FaFacebook,
-  FaInstagram,
-  FaYoutube,
-  FaSoundcloud,
-} from "react-icons/fa";
-import { BsSnapchat, BsSpotify } from "react-icons/bs";
-import { MdEmail } from "react-icons/md";
-import { animateScroll as scroll } from "react-scroll/modules";
-import { IconContext } from "react-icons";
-import useCloudinary from '../../hooks/useCloudinary';
+import { FaFacebook, FaInstagram, FaYoutube, FaSoundcloud } from 'react-icons/fa';
+import { BsSnapchat, BsSpotify } from 'react-icons/bs';
+import { MdEmail } from 'react-icons/md';
+import { animateScroll as scroll } from 'react-scroll/modules';
+import { IconContext } from 'react-icons';
+import { generateImageUrl } from '../../utils/cloudinarySetup'; // Ensure the correct path
 import {
   FooterContainer,
   FooterWrap,
@@ -21,37 +15,26 @@ import {
   WebsiteRights,
   SocialIcons,
   SocialIconLink,
-} from "./FooterElements";
-import ContactInfo from "../contactinfo/ContactInfo";
+} from './FooterElements';
+import ContactInfo from '../contactinfo/ContactInfo';
 
 const Footer = () => {
   const toggleHome = () => {
     scroll.scrollToTop();
   };
 
-  const cloudinaryInstance = useCloudinary();
-
-  const logoUrl = useMemo(() => cloudinaryInstance.url("logo_qkgu64", {
-    transformation: [
-      {
-        width: 60,
-        height: 60,
-        gravity: "center",
-        crop: "thumb",
-      },
-      {
-        color: "white",
-        x: 5,
-        y: 5
-      },
-    ],
-    quality: "auto",
-    fetch_format: "auto",
+  const logoUrl = useMemo(() => generateImageUrl('logo_qkgu64', {
+    width: 60,
+    height: 60,
+    gravity: 'center',
+    crop: 'thumb',
+    format: 'auto',
+    quality: 'auto',
     secure: true,
-  }), [cloudinaryInstance]);
+  }), []);
 
   return (
-    <IconContext.Provider value={{ color: "#ac94f4" }}>
+    <IconContext.Provider value={{ color: '#ac94f4' }}>
       <FooterContainer>
         <FooterWrap>
           <SocialMedia id="social media">

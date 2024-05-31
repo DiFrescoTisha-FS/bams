@@ -33,7 +33,7 @@ const CommentSection = React.memo(({ currentUser }) => {
     ],
   }), [cloudinaryInstance]);
 
-  const contentImageUrl = useMemo(() => cloudinaryInstance.url("bam_ctu4i6", {
+  const contentImageUrl = useMemo(() => cloudinaryInstance.url("bam1_Small_sluuou-fotor-2024053015615_pbmxlq", {
     transformation: [
       { width: 455, height: 455, crop: "fill" },
       { quality: "auto" },

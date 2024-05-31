@@ -9,10 +9,12 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@cloudinary/url-gen": "^1.19.0",
     "@react-three/drei": "^9.105.6",
     "@react-three/fiber": "^8.16.6",
     "axios": "^1.6.8",
     "cloudinary-core": "^2.13.1",
+    "cloudinary-react": "^1.8.1",
     "framer-motion": "^11.1.9",
     "i": "^0.3.7",
     "lodash": "^4.17.21",

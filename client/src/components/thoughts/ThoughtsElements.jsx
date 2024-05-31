@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { media_queries } from "../../utils/media_queries";
 
 export const ThoughtsContainer = styled.div`
-  /* position: relative; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,7 +60,7 @@ export const ThoughtsFlexibleLayout = styled.div`
     flex-direction: column;
   `}
 
-${media_queries.phone`
+  ${media_queries.phone`
     flex-direction: column;
     gap: 10;
   `}
@@ -105,114 +104,114 @@ export const ThoughtsImgWrap = styled.div`
 `;
 
 export const ThoughtsStyledImage = styled.img.withConfig({
-    shouldForwardProp: (prop) => ![
-      'position', 'zIndex', 'transform', 'top', 'right', 'left', 'bottom', 
-      'borderRadius', 'border', 'width', 'height', 'tabletHeight', 'mobileHeight'
-    ].includes(prop)
-  })`
-    position: ${props => props.position || 'absolute'};
-    width: ${props => props.width || 'auto'};
-    height: ${props => props.height || 'auto'};
-    top: ${props => props.top || 'auto'};
-    right: ${props => props.right || 'auto'};
-    left: ${props => props.left || 'auto'};
-    bottom: ${props => props.bottom || 'auto'};
-    z-index: ${props => props.zIndex || 'auto'};
-    transform: ${props => props.transform || 'none'};
-    border-radius: ${props => props.borderRadius || '0'};
-    border: ${props => props.border || 'none'};
+  shouldForwardProp: (prop) => ![
+    'position', 'zIndex', 'transform', 'top', 'right', 'left', 'bottom', 
+    'borderRadius', 'border', 'width', 'height', 'tabletHeight', 'mobileHeight'
+  ].includes(prop)
+})`
+  position: ${props => props.position || 'absolute'};
+  width: ${props => props.width || 'auto'};
+  height: ${props => props.height || 'auto'};
+  top: ${props => props.top || 'auto'};
+  right: ${props => props.right || 'auto'};
+  left: ${props => props.left || 'auto'};
+  bottom: ${props => props.bottom || 'auto'};
+  z-index: ${props => props.zIndex || 'auto'};
+  transform: ${props => props.transform || 'none'};
+  border-radius: ${props => props.borderRadius || '0'};
+  border: ${props => props.border || 'none'};
   
-    ${media_queries.tablet`
-      width: 80%;
-      height: auto;
-    `}
-  
-    ${media_queries.phone`
-      width: 90%;
-      height: auto;
-      margin-top: -40px;
-    `}
-  `;
-  
+  ${media_queries.tablet`
+    width: 80%;
+    height: auto;
+  `}
+
+  ${media_queries.phone`
+    width: 90%;
+    height: auto;
+    margin-top: -40px;
+  `}
+`;
+
 ThoughtsStyledImage.propTypes = {
-    position: PropTypes.string,
-    zIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    transform: PropTypes.string,
-    top: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    right: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    left: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    bottom: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    borderRadius: PropTypes.string,
-    border: PropTypes.string,
-    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    tabletHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    mobileHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  };
-  
+  position: PropTypes.string,
+  zIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  transform: PropTypes.string,
+  top: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  right: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  left: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  bottom: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  borderRadius: PropTypes.string,
+  border: PropTypes.string,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  tabletHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  mobileHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};
+
 ThoughtsStyledImage.defaultProps = {
-    position: 'absolute',
-    width: 'auto',
-    height: 'auto',
-    top: 'auto',
-    right: 'auto',
-    left: 'auto',
-    bottom: 'auto',
-    zIndex: 'auto',
-    transform: 'none',
-    borderRadius: '0',
-    border: 'none',
-  };
-  
-  export const ThoughtsStyledText = styled.p.withConfig({
-    shouldForwardProp: (prop) => ![
-      'fontSize', 'fontWeight', 'fontFamily', 'lineHeight', 'letterSpacing',
-      'textTransform', 'marginTop', 'marginBottom', 'textAlign', 'position',
-      'maxWidth', 'tabletFontSize', 'phoneFontSize', 'hideOnSmallScreens'
-    ].includes(prop)
-  }).attrs(props => ({
-    as: props.as || 'p',
-  }))`
-    color: ${props => props.color || '#fff'};
-    font-size: ${props => props.fontSize || '20px'};
-    font-weight: ${props => props.fontWeight || '400'};
-    font-family: ${props => props.fontFamily || 'inherit'};
-    line-height: ${props => props.lineHeight || 'normal'};
-    letter-spacing: ${props => props.letterSpacing || 'normal'};
-    text-transform: ${props => props.textTransform || 'none'};
-    margin-top: ${props => props.marginTop || '0'};
-    margin-bottom: ${props => props.marginBottom || '0'};
-    text-align: ${props => props.textAlign || 'left'};
-    position: ${props => props.position || 'relative'};
-    max-width: ${props => props.maxWidth || 'none'};
+  position: 'absolute',
+  width: 'auto',
+  height: 'auto',
+  top: 'auto',
+  right: 'auto',
+  left: 'auto',
+  bottom: 'auto',
+  zIndex: 'auto',
+  transform: 'none',
+  borderRadius: '0',
+  border: 'none',
+};
+
+export const ThoughtsStyledText = styled.p.withConfig({
+  shouldForwardProp: (prop) => ![
+    'fontSize', 'fontWeight', 'fontFamily', 'lineHeight', 'letterSpacing',
+    'textTransform', 'marginTop', 'marginBottom', 'textAlign', 'position',
+    'maxWidth', 'tabletFontSize', 'phoneFontSize', 'hideOnSmallScreens'
+  ].includes(prop)
+}).attrs(props => ({
+  as: props.as || 'p',
+}))`
+  color: ${props => props.color || '#fff'};
+  font-size: ${props => props.fontSize || '20px'};
+  font-weight: ${props => props.fontWeight || '400'};
+  font-family: ${props => props.fontFamily || 'inherit'};
+  line-height: ${props => props.lineHeight || 'normal'};
+  letter-spacing: ${props => props.letterSpacing || 'normal'};
+  text-transform: ${props => props.textTransform || 'none'};
+  margin-top: ${props => props.marginTop || '0'};
+  margin-bottom: ${props => props.marginBottom || '0'};
+  text-align: ${props => props.textAlign || 'left'};
+  position: ${props => props.position || 'relative'};
+  max-width: ${props => props.maxWidth || 'none'};
     
-    ${media_queries.tablet`
-      font-size: ${props => props.tabletFontSize || props.fontSize};
-      text-align: ${props => props.textAlign || 'center'};
-    `}
-  
-    ${media_queries.phone`
-      font-size: ${props => props.phoneFontSize || props.fontSize};
-      text-align: ${props => props.textAlign || 'center'};
-      display: ${props => props.hideOnSmallScreens ? 'none' : 'block'};
-    `}
-  `;
-  
-  ThoughtsStyledText.propTypes = {
-    as: PropTypes.string,
-    color: PropTypes.string,
-    fontSize: PropTypes.string,
-    fontWeight: PropTypes.string,
-    fontFamily: PropTypes.string,
-    lineHeight: PropTypes.string,
-    letterSpacing: PropTypes.string,
-    textTransform: PropTypes.string,
-    marginTop: PropTypes.string,
-    marginBottom: PropTypes.string,
-    textAlign: PropTypes.string,
-    position: PropTypes.string,
-    maxWidth: PropTypes.string,
-    tabletFontSize: PropTypes.string,
-    phoneFontSize: PropTypes.string,
-    hideOnSmallScreens: PropTypes.bool
-  };  
+  ${media_queries.tablet`
+    font-size: ${props => props.tabletFontSize || props.fontSize};
+    text-align: ${props => props.textAlign || 'center'};
+  `}
+
+  ${media_queries.phone`
+    font-size: ${props => props.phoneFontSize || props.fontSize};
+    text-align: ${props => props.textAlign || 'center'};
+    display: ${props => props.hideOnSmallScreens ? 'none' : 'block'};
+  `}
+`;
+
+ThoughtsStyledText.propTypes = {
+  as: PropTypes.string,
+  color: PropTypes.string,
+  fontSize: PropTypes.string,
+  fontWeight: PropTypes.string,
+  fontFamily: PropTypes.string,
+  lineHeight: PropTypes.string,
+  letterSpacing: PropTypes.string,
+  textTransform: PropTypes.string,
+  marginTop: PropTypes.string,
+  marginBottom: PropTypes.string,
+  textAlign: PropTypes.string,
+  position: PropTypes.string,
+  maxWidth: PropTypes.string,
+  tabletFontSize: PropTypes.string,
+  phoneFontSize: PropTypes.string,
+  hideOnSmallScreens: PropTypes.bool
+};

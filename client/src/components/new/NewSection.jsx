@@ -28,13 +28,15 @@ export const NewSection = () => {
 
   const cloudinaryInstance = useCloudinary();
 
-  const desktopUrl = useMemo(() => cloudinaryInstance.url("NEWD_xzlbos", {
-    transformation: [
-      { width: 1920, crop: "scale" },
-      { quality: "auto:good" },
-      { fetch_format: "auto" },
-    ],
-  }), [cloudinaryInstance]);
+  const desktopUrl = useMemo(() => {
+    return cloudinaryInstance.image("NEWD_xzlbos").toURL({
+      transformation: [
+        { width: 1920, crop: "scale" },
+        { quality: "auto:good" },
+        { fetch_format: "auto" },
+      ],
+    });
+  }, [cloudinaryInstance]);
 
   return (
     <>
@@ -50,7 +52,7 @@ export const NewSection = () => {
                 width="100%"
                 height="100%"
                 controls={true}
-                url="https://youtu.be/Tm6fOYWJD-I?si=k5oso2krZpCpm495"
+                url="https://youtu.be/GriWw3Sk6Bk"
               />
             </VideoContainer>
           </CenterVideo>
