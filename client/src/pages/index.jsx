@@ -104,12 +104,13 @@ const Home = ({ currentUser }) => {
         <Thoughts />
       </Suspense>
       <Suspense fallback={<div>Loading Comments...</div>}>
-        {currentUser && <CommentSection currentUser={currentUser} />}
+        <CommentSection currentUser={currentUser} />
       </Suspense>
       {authState.message && <div className="message">{authState.message}</div>}
       {authState.errorMessage && (
         <div className="error-message">{authState.errorMessage}</div>
       )}
+
       <Footer />
     </>
   );

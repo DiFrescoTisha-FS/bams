@@ -20,26 +20,32 @@ import {
   TextArea,
 } from "../StyledComponents.jsx";
 
+import { GenericSectionContainer, GenericSectionWrapper, GenericStyledImage, GenericStyledText, GenericTextWrapper, GenericImgWrap } from "../genericstyledcomponents/GenericStyledComponents.jsx";
+
 const CommentSection = React.memo(({ currentUser }) => {
   const { dispatch, setErrorMessage, clearErrorMessage, setSuccessMessage, clearSuccessMessage } = useAuthContext();
 
   const cloudinaryInstance = useCloudinary();
 
-  const desktopUrl = useMemo(() => cloudinaryInstance.url("COMMENTBG_2_mctqkg", {
-    transformation: [
-      { width: 1920, crop: "scale" },
-      { quality: "auto:good" },
-      { fetch_format: "auto" },
-    ],
-  }), [cloudinaryInstance]);
+  const desktopUrl = useMemo(() => {
+    return cloudinaryInstance.image("COMMENTBG_2_mctqkg").toURL({
+      transformation: [
+        { width: 1920, crop: "scale" },
+        { quality: "auto:good" },
+        { fetch_format: "auto" },
+      ],
+    });
+  }, [cloudinaryInstance]);
 
-  const contentImageUrl = useMemo(() => cloudinaryInstance.url("bam1_Small_sluuou-fotor-2024053015615_pbmxlq", {
-    transformation: [
-      { width: 455, height: 455, crop: "fill" },
-      { quality: "auto" },
-      { fetch_format: "auto" },
-    ],
-  }), [cloudinaryInstance]);
+  const contentImageUrl = useMemo(() => {
+    return cloudinaryInstance.image("bam1_Small_sluuou-fotor-2024053015615_pbmxlq").toURL({
+      transformation: [
+        { width: 455, height: 455, crop: "fill" },
+        { quality: "auto" },
+        { fetch_format: "auto" },
+      ],
+    });
+  }, [cloudinaryInstance]);
 
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
@@ -71,9 +77,9 @@ const CommentSection = React.memo(({ currentUser }) => {
   };
 
   return (
-    <SectionContainer id="comments">
+    <GenericSectionContainer id="comments">
       <SectionBg>
-        <StyledImage
+        <GenericStyledImage
           src={desktopUrl}
           alt="Crescent Moon"
           position="absolute"
@@ -85,10 +91,10 @@ const CommentSection = React.memo(({ currentUser }) => {
           loading="lazy"
         />
       </SectionBg>
-      <SectionWrapper style={{ zIndex: "20" }} onSubmit={handleCommentSubmit}>
+      <GenericSectionWrapper style={{ zIndex: "20" }}>
         <FlexibleLayout>
-          <ImgWrap>
-            <StyledImage
+          <GenericImgWrap>
+            <GenericStyledImage style={{ marginTop: '75px' }}
               src={contentImageUrl}
               alt="Artist Looking Up At Camera"
               position="relative"
@@ -99,9 +105,9 @@ const CommentSection = React.memo(({ currentUser }) => {
               zIndex="10"
               loading="lazy"
             />
-          </ImgWrap>
-          <TextWrapper className="mt-10">
-            <StyledText
+          </GenericImgWrap>
+          <GenericTextWrapper className="mt-10">
+            <GenericStyledText
               as="p"
               color="#fff"
               fontSize="20px"
@@ -111,8 +117,8 @@ const CommentSection = React.memo(({ currentUser }) => {
               letterSpacing="1.4px"
             >
               Bam Fans
-            </StyledText>
-            <StyledText
+            </GenericStyledText>
+            <GenericStyledText
               as="h1"
               color="#ac94f4"
               fontSize="44px"
@@ -122,8 +128,8 @@ const CommentSection = React.memo(({ currentUser }) => {
               phoneFontSize="32px"
             >
               Before you go...
-            </StyledText>
-            <StyledText
+            </GenericStyledText>
+            <GenericStyledText
               fontSize="20px"
               lineHeight="26px"
               color="#fff"
@@ -134,7 +140,7 @@ const CommentSection = React.memo(({ currentUser }) => {
             >
               Tell Bam what you loved most about your galaxy tour and rate your
               adventure! Thanks for stopping by.
-            </StyledText>
+            </GenericStyledText>
             <FormWrap onSubmit={handleCommentSubmit}>
               <Rating
                 value={rating}
@@ -151,10 +157,10 @@ const CommentSection = React.memo(({ currentUser }) => {
                 </SubmitButton>
               </BtnWrap>
             </FormWrap>
-          </TextWrapper>
+          </GenericTextWrapper>
         </FlexibleLayout>
-      </SectionWrapper>
-    </SectionContainer>
+      </GenericSectionWrapper>
+    </GenericSectionContainer>
   );
 });
 

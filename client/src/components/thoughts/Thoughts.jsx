@@ -1,21 +1,26 @@
 import { useState, useEffect, useMemo } from "react";
-import useCloudinary from '../../hooks/useCloudinary';
+import useCloudinary from "../../hooks/useCloudinary";
 import Tooltip from "../tooltip/Tooltip";
+import { PiArrowFatRightFill } from "react-icons/pi";
 import {
-  ThoughtsContainer,
   ThoughtsBg,
-  ThoughtsWrapper,
-  ThoughtsFlexibleLayout,
-  ThoughtsTextWrapper,
-  ThoughtsImgWrap,
-  ThoughtsStyledImage,
-  ThoughtsStyledText
+  ThoughtsStyledTextWrapper,
 } from "./ThoughtsElements";
 import {
   BtnWrap,
   Button,
   ButtonIcon,
+  FlexibleLayout,
+  DirectiveTextWrapper,
 } from "../StyledComponents";
+import {
+  GenericSectionContainer,
+  GenericSectionWrapper,
+  GenericTextWrapper,
+  GenericImgWrap,
+  GenericStyledImage,
+  GenericStyledText,
+} from "../genericstyledcomponents/GenericStyledComponents";
 import PlanetAudioPlayer from "../planetaudioplayer/PlanetAudioPlayer";
 import Song1 from "../../songs/goku.mp3";
 import Song2 from "../../songs/ten_below.mp3";
@@ -130,14 +135,16 @@ const Thoughts = () => {
   }, [cloudinaryInstance]);
 
   const contentImageUrl = useMemo(() => {
-    return cloudinaryInstance.image("tattoofingers_hdvyyn_emezhw-fotor-2024053015658_b7utnn").toURL({
-      transformation: [
-        { width: 455, height: 455, crop: "fill" },
-        { quality: "auto" },
-        { fetch_format: "auto" },
-        { secure: true }
-      ],
-    });
+    return cloudinaryInstance
+      .image("tattoofingers_hdvyyn_emezhw-fotor-2024053015658_b7utnn")
+      .toURL({
+        transformation: [
+          { width: 455, height: 455, crop: "fill" },
+          { quality: "auto" },
+          { fetch_format: "auto" },
+          { secure: true },
+        ],
+      });
   }, [cloudinaryInstance]);
 
   const handleAreaEnter = (area) => {
@@ -170,11 +177,11 @@ const Thoughts = () => {
   }, [desktopUrl, mobileUrl]);
 
   return (
-    <ThoughtsContainer id="thoughts">
+    <GenericSectionContainer id="thoughts">
       <ThoughtsBg>
         <PlanetAudioPlayer
           mapAreas={MAP_AREAS}
-          image={imageUrl} // If this still needs the image separately
+          image={imageUrl}
           onAreaEnter={handleAreaEnter}
           onAreaLeave={handleAreaLeave}
           loading="lazy"
@@ -188,10 +195,10 @@ const Thoughts = () => {
           {tooltipInfo.content}
         </Tooltip>
       </ThoughtsBg>
-      <ThoughtsWrapper>
-        <ThoughtsFlexibleLayout>
-        <ThoughtsImgWrap>
-            <ThoughtsStyledImage
+      <GenericSectionWrapper>
+        <FlexibleLayout>
+          <GenericImgWrap>
+            <GenericStyledImage
               src={contentImageUrl}
               alt="singer with tattooed fingers on top of his head"
               position="relative"
@@ -201,19 +208,33 @@ const Thoughts = () => {
               border="2px solid #ac94f4"
               zIndex="10"
             />
-          </ThoughtsImgWrap>
-          
-          <ThoughtsTextWrapper>
-          <ThoughtsStyledText
-              fontSize="18px"
-              fontWeight="600"
-              color="#fff"
-              marginBottom="0px"
-              hideOnSmallScreens={true}
-            >
-              Click on a planet to play a song!
-            </ThoughtsStyledText>
-            <ThoughtsStyledText
+          </GenericImgWrap>
+
+          <GenericTextWrapper>
+            <ThoughtsStyledTextWrapper hideOnSmallScreens={true}>
+              <GenericStyledText
+                fontSize="18px"
+                fontWeight="600"
+                color="aqua"
+                marginBottom="50px"
+                marginLeft="100px"
+              >
+                <div className="flex flex-row">
+                  <p className="text-[2rem] text-[#354f80] ml-16 mb-14 text-center">
+                    Click on a planet!
+                  </p>
+                  <PiArrowFatRightFill
+                    style={{
+                      width: "42px",
+                      height: "42px",
+                      marginLeft: "20px",
+                    }}
+                    className="text-[#354f80]"
+                  />
+                </div>
+              </GenericStyledText>
+            </ThoughtsStyledTextWrapper>
+            <GenericStyledText
               as="p"
               color="#fff"
               fontSize="20px"
@@ -223,8 +244,8 @@ const Thoughts = () => {
               letterSpacing="1.4px"
             >
               Bam Quotes
-            </ThoughtsStyledText>
-            <ThoughtsStyledText
+            </GenericStyledText>
+            <GenericStyledText
               as="h1"
               color="#ac94f4"
               fontSize="44px"
@@ -234,8 +255,8 @@ const Thoughts = () => {
               phoneFontSize="32px"
             >
               Thoughts on Music
-            </ThoughtsStyledText>
-            <ThoughtsStyledText
+            </GenericStyledText>
+            <GenericStyledText
               fontSize="20px"
               lineHeight="26px"
               color="#fff"
@@ -244,19 +265,16 @@ const Thoughts = () => {
               maxWidth="440px"
               phoneFontSize="18px"
             >
-              'Music is a way for me to escape reality. It exposes my flaws, and
-              pushes me to be a better person. Always believe in yourself, even
-              when no one else does. Do not let life get in the way of following
-              your dreams.'
-            </ThoughtsStyledText>
-            <ThoughtsStyledText
+              'Music is a way for me to escape reality. It exposes my flaws, and pushes me to be a better person. Always believe in yourself, even when no one else does. Do not let life get in the way of following your dreams.'
+            </GenericStyledText>
+            <GenericStyledText
               fontSize="16px"
               fontWeight="500"
               marginTop="12px"
               color="#fff"
             >
               ~Bamvsthewrld
-            </ThoughtsStyledText>
+            </GenericStyledText>
             <BtnWrap>
               <Button
                 to="comments"
@@ -275,10 +293,10 @@ const Thoughts = () => {
                 <ButtonIcon hover={isHovered} />
               </Button>
             </BtnWrap>
-          </ThoughtsTextWrapper>
-        </ThoughtsFlexibleLayout>
-      </ThoughtsWrapper>
-    </ThoughtsContainer>
+          </GenericTextWrapper>
+        </FlexibleLayout>
+      </GenericSectionWrapper>
+    </GenericSectionContainer>
   );
 };
 

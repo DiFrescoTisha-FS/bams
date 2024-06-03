@@ -44,7 +44,7 @@ export const NewSection = () => {
       <SectionBg style={{ backgroundImage: `url(${desktopUrl})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
         <NewWrapper style={{ zIndex: "20" }}>
           <TopLine>New Release</TopLine>
-          <Heading>Message to God</Heading>
+          <Heading>Higher Power</Heading>
           <CenterVideo>
             <VideoContainer>
               <StyledReactPlayer
@@ -58,7 +58,7 @@ export const NewSection = () => {
           </CenterVideo>
           <TextWrapper>
             <Subtitle>
-              The official Music video, "Message to God", is now available on
+              The official Music video, "Higher Power", is now available on
               YouTube.
             </Subtitle>
           </TextWrapper>

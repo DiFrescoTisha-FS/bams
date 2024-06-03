@@ -1,7 +1,9 @@
 import { css } from 'styled-components';
 
 const sizes = {
+  largeDesktop: 1500,
   desktop: 1100,
+  largeTablet: 1024,
   tablet: 768,
   phone: 480,
   smallPhone: 430, // New breakpoint for 430px

@@ -1,3 +1,5 @@
+// src/utils/cloudinarySetup.js
+
 import { Cloudinary } from '@cloudinary/url-gen';
 import { fill } from '@cloudinary/url-gen/actions/resize';
 
@@ -8,25 +10,27 @@ const cloudinaryInstance = new Cloudinary({
   },
 });
 
-// Utility function to generate URLs for different formats
+// Utility function to generate a single URL
 export const generateImageUrl = (publicId, transformations) => {
   return cloudinaryInstance.image(publicId)
     .resize(fill().width(transformations.width).height(transformations.height))
     .format(transformations.format)
+    .quality(transformations.quality || 'auto')
     .toURL();
 };
 
 // Utility function to generate srcSet URLs
 export const generateImageUrls = (publicId, widths) => {
   if (!publicId || !widths) return '';
-  
-  return widths.map(width => {
+
+  return widths.reduce((acc, width) => {
     const url = cloudinaryInstance.image(publicId)
-      .resize(fill().width(width).height(width)) // Ensure proper transformation
+      .resize(fill().width(width))
       .format('auto')
       .toURL();
-    return `${url} ${width}w`;
-  }).join(', ');
+    acc[`${width}w`] = url;
+    return acc;
+  }, {});
 };
 
 export default cloudinaryInstance;

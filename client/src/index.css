@@ -46,3 +46,7 @@ html, body {
 .main-content {
   padding-top: 80px;
 }
+
+.embed-responsive-item {
+  height: 100%;
+}

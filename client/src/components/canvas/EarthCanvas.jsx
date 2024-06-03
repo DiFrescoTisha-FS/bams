@@ -41,11 +41,12 @@ const EarthCanvas = () => {
       if (width <= 430) {
         setScale(3);
       } else if (width <= 768) {
-        setScale(5);
+        setScale(3); // Smaller scale for tablets
+      } else if (width <= 1500) {
+        setScale(2);
       } else {
         setScale(3);
       }
-      console.log(`Width: ${width}, Scale: ${scale}`);
     };
 
     handleResize();
@@ -67,8 +68,8 @@ const EarthCanvas = () => {
         </Suspense>
       </Canvas>
       <DirectiveTextWrapper>
-        <RotateIcon className="text-gray-400" />
-        Rotate
+        <RotateIcon className="text-[#354F80]" />
+        <p className="text-[#354F80]">Rotate</p>
       </DirectiveTextWrapper>
     </EarthCanvasContainer>
   );

@@ -60,8 +60,8 @@ export const NavLogo = styled(LinkR)`
 `;
 
 export const NavIcon = styled.img`
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   box-shadow: 0 0 20px white;
   border: 3px solid #ac94f4;
   border-radius: 50%;

@@ -28,6 +28,11 @@ export const SectionContainer = styled.div`
   padding: 0;
   min-height: 860px;
   z-index: 1;
+  overflow: hidden; // Ensure no overflow
+
+  ${media_queries.largeTablet`
+    height: 1366px;
+  `}
 
   ${media_queries.tablet`
     padding: 0;
@@ -36,9 +41,15 @@ export const SectionContainer = styled.div`
     align-items: center;
     min-height: auto;
   `}
-`;
 
-// 
+  ${media_queries.smallPhone`
+    padding: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 932px;
+  `}
+`;
 
 export const SectionBg = styled.div`
   position: absolute;
@@ -127,7 +138,7 @@ export const TextWrapper = styled.div`
 
   ${media_queries.tablet`
     max-width: 100%; // Adjust the max-width to fit the other half of the container
-    order: 1;
+    order: 2;
     margin-bottom: 50px; // Moves the text to the left side
     margin-left: 40%;
   `}
@@ -142,7 +153,7 @@ export const StyledH1 = styled.p.withConfig({
   shouldForwardProp: (prop) => ![
     'fontSize', 'fontWeight', 'fontFamily', 'lineHeight', 'letterSpacing',
     'textTransform', 'marginTop', 'marginBottom', 'textAlign', 'position',
-    'maxWidth', 'tabletFontSize', 'phoneFontSize'
+    'maxWidth', 'largeTabletMarginTop', 'tabletFontSize', 'phoneFontSize', 'smallPhoneMarginBottom', 'smallPhoneMarginTop', 'smallPhoneFontSize', 'smallPhoneFontFamily'
   ].includes(prop)
 }).attrs(props => ({
   as: props.as || 'h1',
@@ -151,9 +162,24 @@ export const StyledH1 = styled.p.withConfig({
   color: ${props => props.color || '#fff'};
   font-family: ${props => props.fontFamily || 'inherit'};
   line-height: ${props => props.lineHeight || 'normal'};
+  margin-top: ${props => props.marginTop || '0'};
+
+  ${media_queries.largeTablet`
+    margin-top: ${props => props.largeTabletMarginTop || '0'};
+  `}
+
+  ${media_queries.tablet`
+    margin-top: ${props => props.tabletMarginTop || '0'};
+  `}
   
   ${media_queries.phone`
-    font-size: 4rem;
+    // font-size: 4rem;
+  `}
+
+  ${media_queries.smallPhone`
+    font-size: ${props => props.smallPhoneFontSize || '4rem'};
+    font-family: ${props => props.smallPhoneFontFamily || props.fontFamily};
+    margin-top: 200px;
   `}
 `;
 
@@ -171,15 +197,18 @@ StyledH1.propTypes = {
   textAlign: PropTypes.string,
   position: PropTypes.string,
   maxWidth: PropTypes.string,
+  largeTabletMarginTop: PropTypes.string,
   tabletFontSize: PropTypes.string,
   phoneFontSize: PropTypes.string,
+  smallPhoneMarginBottom: PropTypes.string,
+  smallPhoneFontFamily: PropTypes.string
 };
 
 export const StyledText = styled.p.withConfig({
   shouldForwardProp: (prop) => ![
     'fontSize', 'fontWeight', 'fontFamily', 'lineHeight', 'letterSpacing',
     'textTransform', 'marginTop', 'marginBottom', 'textAlign', 'position',
-    'maxWidth', 'tabletFontSize', 'phoneFontSize', 'isVisible'
+    'maxWidth', 'largeTabletFontSize','largeTabletMarginBottom', 'tabletFontSize', 'phoneFontSize', 'smallPhoneFontSize', 'smallPhoneLineHeight', 'smallPhoneMaxWidth', 'smallPhoneWidth', 'smallPhoneHeight', 'smallPhoneTop', 'smallPhoneRight', 'smallPhoneFontFamily'
   ].includes(prop)
 }).attrs(props => ({
   as: props.as || 'p',
@@ -195,21 +224,37 @@ export const StyledText = styled.p.withConfig({
   margin-bottom: ${props => props.marginBottom || '0'};
   text-align: ${props => props.textAlign || 'left'};
   position: ${props => props.position || 'relative'};
-  max-width: ${props => props.maxWidth || 'none'};
+  max-width: ${props => props.maxWidth || '100%'};
 
+  ${media_queries.largeTablet`
+    font-size: ${props => props.largeTabletFontSize || props.fontSize};
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  `}
+  
   ${media_queries.tablet`
     font-size: ${props => props.tabletFontSize || props.fontSize};
     text-align: ${props => props.textAlign || 'center'};
+    max-width: 80%;
   `}
-
-  @media (max-width: ${media_queries.phone}) {
+  
+  ${media_queries.phone`
     font-size: ${props => props.phoneFontSize || props.fontSize};
-  }
-
-  ${props => props.isVisible && `
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    text-align: ${props => props.textAlign || 'center'};
+    max-width: 90%;
+  `}
+  
+  ${media_queries.smallPhone`
+    font-size: ${props => props.smallPhoneFontSize || props.phoneFontSize || props.fontSize};
+    font-family: ${props => props.smallPhoneFontFamily || props.fontFamily};
+    line-height: ${props => props.smallPhoneLineHeight || props.lineHeight};
+    text-align: ${props => props.smallPhoneTextAlign || props.textAlign};
+    top: ${props => props.smallPhoneTop || props.top};
+    right: ${props => props.smallPhoneRight || props.right};
+    max-width: 100%;
+    margin: 0 auto;
+    margin-top: 20px; // Adjust this value to push the text content further down
   `}
 `;
 
@@ -227,9 +272,18 @@ StyledText.propTypes = {
   textAlign: PropTypes.string,
   position: PropTypes.string,
   maxWidth: PropTypes.string,
+  largeTabletFontSize: PropTypes.string,
+  largeTabletMarginBottom: PropTypes.string,
   tabletFontSize: PropTypes.string,
   phoneFontSize: PropTypes.string,
-  isVisible: PropTypes.bool,
+  smallPhoneFontSize: PropTypes.string,
+  smallPhoneFontFamily: PropTypes.string,
+  smallPhoneLineHeight: PropTypes.string,
+  smallPhoneMaxWidth: PropTypes.string,
+  smallPhoneWidth: PropTypes.string,
+  smallPhoneHeight: PropTypes.string,
+  smallPhoneTop: PropTypes.string,
+  smallPhoneRight: PropTypes.string
 };
 
 export const ImgWrap = styled.div`
@@ -262,11 +316,19 @@ export const Img = styled.img`
 
 export const BtnWrap = styled.div`
   display: flex;
-  justify-content: flex-start;
-  text-decoration: none;
+  justify-content: center;
+  width: 100%;
+  padding: 20px 0;
+
+  ${media_queries.largeTablet`
+    justify-content: center;
+  `}
+
+  ${media_queries.tablet`
+    justify-content: center;
+  `}
 
   ${media_queries.phone`
-    font-weight: 300;
     justify-content: center;
   `}
 `;
@@ -370,7 +432,7 @@ export const FormWrap = styled.form`
 
 export const HeroContent = styled.div`
   z-index: 22;
-  max-width: ${maxWidth};
+  max-width: 1100px;
   width: 100%;
   margin: 0 auto;
   padding-top: 3rem;
@@ -381,11 +443,21 @@ export const HeroContent = styled.div`
   justify-content: center;
   margin-top: 150px;
 
-  @media screen and (max-width: 768px) {
+  ${media_queries.tablet`
     padding: 0 20px;
     margin-top: 150px;
-  }
+  `}
+
+  ${media_queries.phone`
+    padding: 0 20px;
+    margin-top: 100px;
+  `}
+
+  ${media_queries.smallPhone`
+    // margin-top: 500px;
+  `}
 `;
+
 
 export const TextArea = styled.textarea`
 margin-top: 15px;
@@ -460,12 +532,33 @@ StyledImage.propTypes = {
 export default StyledImage;
 
 export const StyledIframe = styled.iframe`
+  max-width: 455px;
   width: 100%;
-  height: 450px; // Default height for larger screens
+  height: 455px;
+  position: relative;
+  z-index: 1;
+  order: 2;
+  margin-bottom: 16px;
+  border-radius: 10px;
 
-  @media (max-width: 768px) {
-    height: 350px; // Height for mobile devices
-  }
+  ${media_queries.largeTablet`
+    order: 1;
+    // margin-right: 20px;
+    // width: 50%;
+  `}
+
+  ${media_queries.tablet`
+    // height: 350px;
+    // margin-bottom: 20px;
+    // margin-left: 12%;
+  `}
+
+  ${media_queries.smallPhone`
+    order: 1;
+    width: 95%;
+    margin-left: 10px;
+    // margin-right: 35%
+  `}
 `;
 
 export const EarthCanvasContainer = styled.div`
@@ -475,18 +568,29 @@ export const EarthCanvasContainer = styled.div`
   width: 400px;
   height: 400px;
   z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ${media_queries.largeTablet`
+    top: 5%; // Move up slightly for large tablets
+    left: 50%;
+    transform: translateX(-50%); // Center horizontally
+    width: 600px; // Increase the width for large tablets
+    height: 600px; // Increase the height for large tablets
+  `}
 
   ${media_queries.tablet`
-    width: 200px;
-    height: 200px;
-    top: 15%;
+    width: 400px;
+    height: 400px; 
+    top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
   `}
 
   ${media_queries.phone`
-    width: 150px;
-    height: 150px;
+    width: 300px; // Adjust the width for phones
+    height: 300px; // Adjust the height for phones
     top: 23%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -495,7 +599,7 @@ export const EarthCanvasContainer = styled.div`
   ${media_queries.smallPhone`
     width: 200px;
     height: 200px;
-    top: 23%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
   `}

@@ -9,14 +9,12 @@ import {
   SectionContainer,
   SectionBg,
   HeroContent,
-  StyledImage,
-  StyledText,
-  StyledH1,
   Button,
   ButtonIcon,
   HeroBtnWrapper,
   EarthCanvasContainer,
 } from "../StyledComponents";
+import { StyledImage, StyledH1, StyledText, } from "./HeroElements"
 
 const HeroSection = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -57,7 +55,18 @@ const HeroSection = () => {
           height="auto"
           top="30%"
           right="10%"
-          zIndex="12"
+          zIndex="2"
+          largeTabletWidth="50px"
+          largeTabletHeight="50px"
+          largeTabletTop="70%" 
+          largeTabletRight="5%"
+          tabletWidth="50px"
+          tabletHeight="50px"
+          tabletTop="60%"
+          tabletRight="5%"
+          smallPhoneWidth="30px"
+          smallPhoneTop="700px"
+          largeTableTop="50%"
         />
         <StyledImage
           src={earthWebPUrl}
@@ -67,7 +76,18 @@ const HeroSection = () => {
           height="auto"
           top="550px"
           right="350px"
-          zIndex="3"
+          zIndex="2"
+          largeTabletWidth="100px"
+          largeTabletHeight="100px"
+          largeTabletTop="90%"
+          largeTabletRight="700px"
+          tabletWidth="75px"
+          tabletHeight="75px"
+          tabletTop="900px"
+          tabletRight="600px"
+          smallPhoneWidth="80px"
+          smallPhoneTop="750px"
+          smallPhoneRight="300px"
         />
       </SectionBg>
       <EarthCanvasContainer>
@@ -80,7 +100,7 @@ const HeroSection = () => {
           `}
         `}
       >
-        <HeroContent style={{ zIndex: "20" }}>
+        <HeroContent className="sm:h-[1000px]">
           <StyledH1
             color="#ac94f4"
             fontSize="8rem"
@@ -88,15 +108,20 @@ const HeroSection = () => {
             fontFamily="Arthemis, sans-serif"
             lineHeight="1.1"
             marginBottom="24px"
+            smallPhoneMarginBottom="0"
+            largeTabletMarginTop="200px"
+            tabletMarginTop="150px"
           >
             BamVsTheWrld
           </StyledH1>
-          <StyledText
+          <StyledText style={{ marginTop: '20px' }}
             isVisible={isInView ? "true" : undefined}
             fontSize="20px"
             lineHeight="26px"
             marginBottom="20px"
             maxWidth="900px"
+            smallPhoneMarginTop="200px"
+            largeTabletFontSize="20px" // Add this prop
           >
             {`Witnessing Bam's evolution as an artist has been truly
             inspiring. Since we first collaborated back in 2020, his
@@ -109,11 +134,12 @@ const HeroSection = () => {
             lineHeight="26px"
             marginTop="20px"
             maxWidth="700px"
+            largeTabletMarginBottom="20px"
           >
             ~Bray Kaizen
           </StyledText>
           <HeroBtnWrapper>
-            <Button
+            <Button style={{ marginBottom: "100px" }}
               to="bio"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}

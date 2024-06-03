@@ -10,6 +10,10 @@ export const NewWrapper = styled.div`
   max-width: 1100px;
   position: relative;
   z-index: 2;
+
+  ${media_queries.smallPhone`
+    margin-top: 40px; // Adjust this value as needed
+  `}
 `;
 
 export const TextWrapper = styled.div`
@@ -61,6 +65,10 @@ export const BtnWrap = styled.div`
   justify-content: center;
   width: 100%;
   padding: 20px 0;
+
+  ${media_queries.smallPhone`
+    margin-bottom: 40px; // Adjust this value as needed
+  `}
 `;
 
 export const NewDiv = styled.div`

@@ -1,33 +1,62 @@
 import React, { useMemo, useState } from 'react';
-import { BtnWrap, Button, ButtonIcon, SectionContainer, SectionBg, SectionWrapper, FlexibleLayout, TextWrapper, ImgWrap, StyledText } from '../StyledComponents';
-import { generateImageUrl } from '../../utils/cloudinarySetup'; // Ensure the correct import
-import ResponsiveImage from '../ResponsiveImage'; // Ensure the correct path
+import {
+  BtnWrap, Button, ButtonIcon, SectionBg, FlexibleLayout
+} from '../StyledComponents';
+import useCloudinary from '../../hooks/useCloudinary';
 import { FaRocket as RocketIcon, FaArrowAltCircleDown as ArrowIcon } from 'react-icons/fa';
+
+import { GenericSectionContainer, GenericSectionWrapper, GenericTextWrapper, GenericImgWrap, GenericStyledImage, GenericStyledText } from '../genericstyledcomponents/GenericStyledComponents';
 
 const ArtistSection = () => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const desktopUrl = useMemo(() => generateImageUrl('ARTISTDD_vmsgcd', {
-    width: 1920,
-    height: 1080,
-    crop: 'fill',
-    quality: 'auto:good',
-    format: 'auto'
-  }), []);
+  const cloudinaryInstance = useCloudinary();
+
+  const desktopUrl = useMemo(() => {
+    return cloudinaryInstance.image("ARTISTDD_vmsgcd").toURL({
+      transformation: [
+        { width: 1920, crop: "scale" },
+        { quality: "auto:good" },
+        { fetch_format: "auto" },
+      ],
+    });
+  }, [cloudinaryInstance]);
+
+  const contentImageUrl = useMemo(() => {
+    return cloudinaryInstance.image("bam_shooter_kujs9e_e_improve_e_sharpen-fotor-2024053015749_x9rsmf").toURL({
+      transformation: [
+        { width: 455, height: 455, crop: "fill" },
+        { quality: "auto" },
+        { fetch_format: "auto" },
+        { secure: true }
+      ],
+    });
+  }, [cloudinaryInstance]);
 
   return (
-    <SectionContainer id="bio">
-      <SectionBg srcSet={desktopUrl} />
-      <SectionWrapper>
-        <FlexibleLayout $reverse={true}>
-          <ImgWrap>
-            <ResponsiveImage
-              publicId="bam_shooter_kujs9e_e_improve_e_sharpen-fotor-2024053015749_x9rsmf"
+    <>
+      <GenericSectionContainer id="bio">
+        <SectionBg style={{ backgroundImage: `url(${desktopUrl})` }} />
+        <GenericSectionWrapper>
+          <GenericImgWrap>
+            <GenericStyledImage style={{ marginBottom: "14px" }}
+              src={contentImageUrl}
               alt="Artist pretending to hold a weapon"
+              position="relative"
+              width="455px"
+              height="auto"
+              borderRadius="10px"
+              border="2px solid #ac94f4"
+              zIndex="10"
+              loading="lazy"
+              smallPhoneBorder="2px solid #ac94f4"
+              smallPhoneBorderRadius="10px"
+              smallPhoneMarginTop="200px"
+              tabletWidth="455px"
             />
-          </ImgWrap>
-          <TextWrapper>
-            <StyledText
+          </GenericImgWrap>
+          <GenericTextWrapper className="text-content">
+            <GenericStyledText
               as="p"
               color="#fff"
               fontSize="20px"
@@ -35,11 +64,15 @@ const ArtistSection = () => {
               textTransform="uppercase"
               marginBottom="16px"
               letterSpacing="1.4px"
-              phoneFontSize="16px"
+              smallPhoneMaxWidth="80%"
+              textAlign="left"
+              smallPhoneTextAlign="center"
+              smallPhoneMarginBottom="10px"
+              tabletTextAlign="center"
             >
               Approved Bam Bio
-            </StyledText>
-            <StyledText
+            </GenericStyledText>
+            <GenericStyledText
               as="h1"
               color="#ac94f4"
               fontSize="44px"
@@ -49,8 +82,8 @@ const ArtistSection = () => {
               phoneFontSize="32px"
             >
               Gavin Di Fresco
-            </StyledText>
-            <StyledText
+            </GenericStyledText>
+            <GenericStyledText
               fontSize="20px"
               lineHeight="26px"
               color="#fff"
@@ -58,16 +91,15 @@ const ArtistSection = () => {
               marginBottom="25px"
               maxWidth="440px"
               phoneFontSize="18px"
-              smallPhoneFontSize="16px"
             >
-              {`Gavin Di Fresco, known professionally as Bamvsthewrld, is an
+              'Gavin Di Fresco, known professionally as Bamvsthewrld, is an
               American rapper, singer, and songwriter who shares his life
               experiences in his lyrics, inspiring others who can relate to
               the issues of his generation. Career highlights include a live
               performance at Innovative Academy prom in Hendersonville, NC,
-              and a sold-out show in his home town of Brevard, NC.`}
-            </StyledText>
-            <BtnWrap>
+              and a sold-out show in his home town of Brevard, NC.'
+            </GenericStyledText>
+            <BtnWrap style={{ marginBottom: '0px' }}>
               <Button
                 to="music"
                 smooth={true}
@@ -85,10 +117,10 @@ const ArtistSection = () => {
                 />
               </Button>
             </BtnWrap>
-          </TextWrapper>
-        </FlexibleLayout>
-      </SectionWrapper>
-    </SectionContainer>
+          </GenericTextWrapper>
+        </GenericSectionWrapper>
+      </GenericSectionContainer>
+    </>
   );
 };
 
