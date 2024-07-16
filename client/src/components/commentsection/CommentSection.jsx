@@ -12,15 +12,13 @@ import {
   FlexibleLayout,
   TextWrapper,
   ImgWrap,
-  StyledImage,
-  StyledText,
-  SubmitButton,
+  Button,
   BtnWrap,
   FormWrap,
   TextArea,
-} from "../StyledComponents.jsx";
-
-import { GenericSectionContainer, GenericSectionWrapper, GenericStyledImage, GenericStyledText, GenericTextWrapper, GenericImgWrap } from "../genericstyledcomponents/GenericStyledComponents.jsx";
+  StyledImage,
+  StyledText
+} from "../StyledComponents";
 
 const CommentSection = React.memo(({ currentUser }) => {
   const { dispatch, setErrorMessage, clearErrorMessage, setSuccessMessage, clearSuccessMessage } = useAuthContext();
@@ -77,9 +75,9 @@ const CommentSection = React.memo(({ currentUser }) => {
   };
 
   return (
-    <GenericSectionContainer id="comments">
+    <SectionContainer id="comments">
       <SectionBg>
-        <GenericStyledImage
+      <StyledImage
           src={desktopUrl}
           alt="Crescent Moon"
           position="absolute"
@@ -91,10 +89,10 @@ const CommentSection = React.memo(({ currentUser }) => {
           loading="lazy"
         />
       </SectionBg>
-      <GenericSectionWrapper style={{ zIndex: "20" }}>
-        <FlexibleLayout>
-          <GenericImgWrap>
-            <GenericStyledImage style={{ marginTop: '75px' }}
+      <SectionWrapper style={{ zIndex: "20" }} onSubmit={handleCommentSubmit}>
+        <FlexibleLayout $reverse={false}>
+          <ImgWrap>
+          <StyledImage
               src={contentImageUrl}
               alt="Artist Looking Up At Camera"
               position="relative"
@@ -105,9 +103,9 @@ const CommentSection = React.memo(({ currentUser }) => {
               zIndex="10"
               loading="lazy"
             />
-          </GenericImgWrap>
-          <GenericTextWrapper className="mt-10">
-            <GenericStyledText
+          </ImgWrap>
+          <TextWrapper className="mt-10">
+          <StyledText
               as="p"
               color="#fff"
               fontSize="20px"
@@ -117,8 +115,8 @@ const CommentSection = React.memo(({ currentUser }) => {
               letterSpacing="1.4px"
             >
               Bam Fans
-            </GenericStyledText>
-            <GenericStyledText
+            </StyledText>
+            <StyledText
               as="h1"
               color="#ac94f4"
               fontSize="44px"
@@ -128,8 +126,8 @@ const CommentSection = React.memo(({ currentUser }) => {
               phoneFontSize="32px"
             >
               Before you go...
-            </GenericStyledText>
-            <GenericStyledText
+            </StyledText>
+            <StyledText
               fontSize="20px"
               lineHeight="26px"
               color="#fff"
@@ -139,12 +137,12 @@ const CommentSection = React.memo(({ currentUser }) => {
               phoneFontSize="18px"
             >
               Tell Bam what you loved most about your galaxy tour and rate your
-              adventure! Thanks for stopping by.
-            </GenericStyledText>
+              adventure!” Thanks for stopping by.
+            </StyledText>
             <FormWrap onSubmit={handleCommentSubmit}>
               <Rating
                 value={rating}
-                onChange={handleRatingChange}
+                onChange={handleRatingChange} // Bind the handler here
               />
               <TextArea
                 placeholder="Leave your comment here"
@@ -152,15 +150,20 @@ const CommentSection = React.memo(({ currentUser }) => {
                 onChange={handleCommentChange}
               />
               <BtnWrap>
-                <SubmitButton type="submit">
-                  Submit <BsSendFill />
-                </SubmitButton>
+                <Button
+                  className="inline-flex items-center rounded-full bg-primary border border-[#010606] whitespace-nowrap px-10 py-4"
+                  onClick={handleCommentSubmit}
+                  type="submit"
+                >
+                  <span>Send</span>
+                  {<BsSendFill size={20} className="ml-2" />}
+                </Button>
               </BtnWrap>
             </FormWrap>
-          </GenericTextWrapper>
+          </TextWrapper>
         </FlexibleLayout>
-      </GenericSectionWrapper>
-    </GenericSectionContainer>
+      </SectionWrapper>
+    </SectionContainer>
   );
 });
 

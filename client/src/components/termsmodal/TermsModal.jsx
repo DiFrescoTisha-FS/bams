@@ -4,7 +4,7 @@ const TermsModal = ({ isOpen, onAccept, onClose }) => {
   const handleAccept = () => {
     onAccept();
   };
-  
+
   const handleClose = (event) => {
     if (event) event.stopPropagation();
     onClose();
@@ -12,53 +12,60 @@ const TermsModal = ({ isOpen, onAccept, onClose }) => {
 
   useEffect(() => {
     if (isOpen) {
-        const modal = document.querySelector(".terms-modal-content");
-        if (!modal) {
-            console.error("Modal element not found in the DOM");
-            return;
-        }
-        const focusableElementsString = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
-        const focusableElements = modal.querySelectorAll(focusableElementsString);
-        if (focusableElements.length === 0) {
-            console.error("No focusable elements found inside the modal");
-            return;
-        }
-        const firstFocusableElement = focusableElements[0];
-        const lastFocusableElement = focusableElements[focusableElements.length - 1];
+      const modal = document.querySelector(".terms-modal-content");
+      if (!modal) {
+        console.error("Modal element not found in the DOM");
+        return;
+      }
+      const focusableElementsString =
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+      const focusableElements = modal.querySelectorAll(focusableElementsString);
+      if (focusableElements.length === 0) {
+        console.error("No focusable elements found inside the modal");
+        return;
+      }
+      const firstFocusableElement = focusableElements[0];
+      const lastFocusableElement =
+        focusableElements[focusableElements.length - 1];
 
-        const handleKeydown = (e) => {
-            switch (e.key) {
-                case 'Tab':
-                    if (e.shiftKey && document.activeElement === firstFocusableElement) {
-                        lastFocusableElement.focus();
-                        e.preventDefault();
-                    } else if (!e.shiftKey && document.activeElement === lastFocusableElement) {
-                        firstFocusableElement.focus();
-                        e.preventDefault();
-                    }
-                    break;
-                case 'Escape':
-                    onClose();
-                    break;
-                default:
-                    break;
+      const handleKeydown = (e) => {
+        switch (e.key) {
+          case "Tab":
+            if (
+              e.shiftKey &&
+              document.activeElement === firstFocusableElement
+            ) {
+              lastFocusableElement.focus();
+              e.preventDefault();
+            } else if (
+              !e.shiftKey &&
+              document.activeElement === lastFocusableElement
+            ) {
+              firstFocusableElement.focus();
+              e.preventDefault();
             }
-        };
+            break;
+          case "Escape":
+            onClose();
+            break;
+          default:
+            break;
+        }
+      };
 
-        document.addEventListener('keydown', handleKeydown);
-        firstFocusableElement.focus();
+      document.addEventListener("keydown", handleKeydown);
+      firstFocusableElement.focus();
 
-        return () => {
-            document.removeEventListener('keydown', handleKeydown);
-        };
+      return () => {
+        document.removeEventListener("keydown", handleKeydown);
+      };
     }
-}, [isOpen, onClose]);
-
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-50" style={{ zIndex: 2000 }}>
       {/* Overlay */}
       <div
         className="absolute inset-0 bg-black opacity-50"
@@ -66,9 +73,11 @@ const TermsModal = ({ isOpen, onAccept, onClose }) => {
       ></div>
 
       {/* Modal content */}
-      <div className="relative bg-gray-400 p-6 rounded-lg shadow-lg overflow-auto max-h-full w-full mx-4 md:mx-0 md:max-h-3/4 md:w-2/4 terms-modal-content">
-        <h2 className="text-xl text-center text-gray-800 font-bold mb-4">Terms and Conditions</h2>
-        <ol className="text-gray-700 text-left list-decimal list-outside ml-4 md:ml-12 space-y-4">
+      <div className="relative mt-4 bg-gray-400 p-6 rounded-lg shadow-lg overflow-auto max-h-2/4 w-2/4 m-auto small-text">
+        <h2 className="text-xl text-center text-gray-800 font-bold mb-4">
+          Terms and Conditions
+        </h2>
+        <ol className="text-gray-700 list-decimal list-outside ml-12 space-y-4">
           <li>
             <strong>Acceptance of Terms:</strong> By accessing and using the
             Bamvsthewrld application, you agree to be bound by these Terms and

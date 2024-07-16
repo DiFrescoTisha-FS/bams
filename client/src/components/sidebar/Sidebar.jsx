@@ -1,5 +1,4 @@
 import React from "react";
-import { FaTimes } from "react-icons/fa";
 import PropTypes from 'prop-types';
 import {
   SidebarContainer,
@@ -9,18 +8,10 @@ import {
   SidebarMenu,
   SidebarLink,
   SideBtnWrap,
-  SidebarRoute,
 } from "./SidebarElements";
-import UserComponent from "../UserComponent"; // Make sure this path is correct
+import UserComponent from "../UserComponent";
 
 const Sidebar = ({ isOpen, toggle, currentUser, handleSignIn, handleSignOut }) => {
-  const handleClick = (e) => {
-    e.stopPropagation();
-    if (window.innerWidth < 768) {
-      toggle();
-    }
-  };
-
   return (
     <SidebarContainer isOpen={isOpen} onClick={toggle}>
       <Icon onClick={toggle}>

@@ -1,27 +1,22 @@
-import { useState, useEffect, useMemo } from "react";
-import useCloudinary from "../../hooks/useCloudinary";
+import React, { useState, useMemo, useEffect } from 'react';
+import useCloudinary from '../../hooks/useCloudinary';
 import Tooltip from "../tooltip/Tooltip";
+import PlanetAudioPlayer from "../planetaudioplayer/PlanetAudioPlayer";
 import { PiArrowFatRightFill } from "react-icons/pi";
 import {
-  ThoughtsBg,
-  ThoughtsStyledTextWrapper,
-} from "./ThoughtsElements";
-import {
+  SectionContainer,
+  SectionBg,
+  SectionWrapper,
+  TextWrapper,
+  FlexibleLayout,
+  ImgWrap,
   BtnWrap,
   Button,
   ButtonIcon,
-  FlexibleLayout,
-  DirectiveTextWrapper,
-} from "../StyledComponents";
-import {
-  GenericSectionContainer,
-  GenericSectionWrapper,
-  GenericTextWrapper,
-  GenericImgWrap,
-  GenericStyledImage,
-  GenericStyledText,
-} from "../genericstyledcomponents/GenericStyledComponents";
-import PlanetAudioPlayer from "../planetaudioplayer/PlanetAudioPlayer";
+  StyledImage,
+  StyledText,
+} from '../StyledComponents';
+
 import Song1 from "../../songs/goku.mp3";
 import Song2 from "../../songs/ten_below.mp3";
 import Song3 from "../../songs/up_in_clouds.mp3";
@@ -173,18 +168,30 @@ const Thoughts = () => {
     handleResize();
     window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, [desktopUrl, mobileUrl]);
 
   return (
-    <GenericSectionContainer id="thoughts">
-      <ThoughtsBg>
+    <SectionContainer id="thoughts">
+      <SectionBg>
+        <StyledImage
+          src={imageUrl}
+          alt="Background"
+          position="absolute"
+          width="100%"
+          height="100%"
+          objectFit="contain"
+          top={0}
+          left={0}
+          loading="lazy"
+        />
         <PlanetAudioPlayer
           mapAreas={MAP_AREAS}
-          image={imageUrl}
+          image={desktopUrl}
           onAreaEnter={handleAreaEnter}
           onAreaLeave={handleAreaLeave}
-          loading="lazy"
         />
         <Tooltip
           top={tooltipInfo.top}
@@ -194,11 +201,11 @@ const Thoughts = () => {
         >
           {tooltipInfo.content}
         </Tooltip>
-      </ThoughtsBg>
-      <GenericSectionWrapper>
+      </SectionBg>
+      <SectionWrapper>
         <FlexibleLayout>
-          <GenericImgWrap>
-            <GenericStyledImage
+          <ImgWrap>
+            <StyledImage
               src={contentImageUrl}
               alt="singer with tattooed fingers on top of his head"
               position="relative"
@@ -208,33 +215,26 @@ const Thoughts = () => {
               border="2px solid #ac94f4"
               zIndex="10"
             />
-          </GenericImgWrap>
-
-          <GenericTextWrapper>
-            <ThoughtsStyledTextWrapper hideOnSmallScreens={true}>
-              <GenericStyledText
-                fontSize="18px"
-                fontWeight="600"
-                color="aqua"
-                marginBottom="50px"
-                marginLeft="100px"
-              >
-                <div className="flex flex-row">
-                  <p className="text-[2rem] text-[#354f80] ml-16 mb-14 text-center">
-                    Click on a planet!
-                  </p>
-                  <PiArrowFatRightFill
-                    style={{
-                      width: "42px",
-                      height: "42px",
-                      marginLeft: "20px",
-                    }}
-                    className="text-[#354f80]"
-                  />
-                </div>
-              </GenericStyledText>
-            </ThoughtsStyledTextWrapper>
-            <GenericStyledText
+          </ImgWrap>
+          <TextWrapper>
+            <StyledText
+              fontSize="18px"
+              fontWeight="600"
+              color="aqua"
+              marginBottom="50px"
+              marginLeft="100px"
+              hideOnSmallScreens={true}
+            >
+              <div className="flex flex-row">
+                <p className="directive">
+                  Click on a planet!
+                </p>
+                <PiArrowFatRightFill
+                  className="arrow-icon"
+                />
+              </div>
+            </StyledText>
+            <StyledText
               as="p"
               color="#fff"
               fontSize="20px"
@@ -244,8 +244,8 @@ const Thoughts = () => {
               letterSpacing="1.4px"
             >
               Bam Quotes
-            </GenericStyledText>
-            <GenericStyledText
+            </StyledText>
+            <StyledText
               as="h1"
               color="#ac94f4"
               fontSize="44px"
@@ -255,8 +255,8 @@ const Thoughts = () => {
               phoneFontSize="32px"
             >
               Thoughts on Music
-            </GenericStyledText>
-            <GenericStyledText
+            </StyledText>
+            <StyledText
               fontSize="20px"
               lineHeight="26px"
               color="#fff"
@@ -265,16 +265,19 @@ const Thoughts = () => {
               maxWidth="440px"
               phoneFontSize="18px"
             >
-              'Music is a way for me to escape reality. It exposes my flaws, and pushes me to be a better person. Always believe in yourself, even when no one else does. Do not let life get in the way of following your dreams.'
-            </GenericStyledText>
-            <GenericStyledText
+              'Music is a way for me to escape reality. It exposes my flaws, and
+              pushes me to be a better person. Always believe in yourself, even
+              when no one else does. Do not let life get in the way of following
+              your dreams.'
+            </StyledText>
+            <StyledText
               fontSize="16px"
               fontWeight="500"
               marginTop="12px"
               color="#fff"
             >
               ~Bamvsthewrld
-            </GenericStyledText>
+            </StyledText>
             <BtnWrap>
               <Button
                 to="comments"
@@ -293,10 +296,10 @@ const Thoughts = () => {
                 <ButtonIcon hover={isHovered} />
               </Button>
             </BtnWrap>
-          </GenericTextWrapper>
+          </TextWrapper>
         </FlexibleLayout>
-      </GenericSectionWrapper>
-    </GenericSectionContainer>
+      </SectionWrapper>
+    </SectionContainer>
   );
 };
 

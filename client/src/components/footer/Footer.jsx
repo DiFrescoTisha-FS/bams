@@ -35,7 +35,7 @@ const Footer = () => {
 
   return (
     <IconContext.Provider value={{ color: '#ac94f4' }}>
-      <FooterContainer>
+      <FooterContainer className="footer-container">
         <FooterWrap>
           <SocialMedia id="social media">
             <SocialMediaWrap>

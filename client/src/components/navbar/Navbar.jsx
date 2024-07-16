@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useAuthContext } from '../../contexts/AuthContext';
-import { generateImageUrl } from '../../utils/cloudinarySetup'; // Ensure the correct path
+import { generateImageUrl } from '../../utils/cloudinarySetup';
 import { FaBars } from 'react-icons/fa';
 import { IconContext } from 'react-icons/lib';
 import { animateScroll as scroll } from 'react-scroll';

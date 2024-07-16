@@ -1,21 +1,34 @@
-import React, { useState, useMemo, memo } from 'react';
+import React, { useState, useMemo, memo, useCallback, useEffect } from 'react';
 import useCloudinary from '../../hooks/useCloudinary';
-import useIsMobile from '../../hooks/useIsMobile'; 
 
 import {
+  SectionContainer,
+  SectionBg,
+  SectionWrapper,
+  FlexibleLayout,
+  TextWrapper,
+  ImgWrap,
+  BtnWrap,
   Button,
   ButtonIcon,
-  StyledIframe, 
-  SectionBg,
-  FlexibleLayout,
-  BtnWrap
-} from '../StyledComponents';
-import { GenericSectionContainer, GenericStyledImage, GenericSectionWrapper, GenericImgWrap, GenericStyledText, GenericTextWrapper } from '../genericstyledcomponents/GenericStyledComponents';
+  StyledImage,
+  StyledText,
+  Music
+} from "../StyledComponents";
 
 const MusicSection = memo(() => {
   const [isHovered, setIsHovered] = useState(false);
-  const isMobile = useIsMobile();
+  const [imageUrl, setImageUrl] = useState("");
   const cloudinaryInstance = useCloudinary();
+
+  const handleResize = useCallback(() => {
+    setImageUrl(desktopUrl);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
 
   const desktopUrl = useMemo(() => {
     return cloudinaryInstance.image('MUSICBG_2_zy5clw').toURL({
@@ -38,96 +51,92 @@ const MusicSection = memo(() => {
   }, [cloudinaryInstance]);
 
   return (
-    <GenericSectionContainer id="music">
-      <SectionBg>
-        <GenericStyledImage
-          src={isMobile ? mobileUrl : desktopUrl} // Conditionally set the background image URL
+    <>
+      <SectionContainer id="music">
+        <SectionBg>
+        <StyledImage
+          src={desktopUrl}
           alt="Planets"
           position="absolute"
           width="100%"
-          height="100%"
+          height="auto"
           objectFit="contain"
           top={0}
-          left={0}
+          left={0}a
           loading="lazy"
         />
-      </SectionBg>
-      <GenericSectionWrapper>
-        <FlexibleLayout>
-          <GenericImgWrap style={{ marginTop: '100px', width: '100%', marginLeft: '4%', marginRight: '3%', order: "1" }}>
-            <StyledIframe
-              title="iframe"
-              width="455px"
-              height="450px"
-              allow="autoplay"
-              loading="lazy"
-              sandbox="allow-scripts allow-same-origin allow-presentation"
-              src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1761927219&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
-            />
-          </GenericImgWrap>
-          <GenericTextWrapper className="text-left">
-            <GenericStyledText
-              as="p"
-              color="#fff"
-              fontSize="20px"
-              fontWeight="700"
-              textTransform="uppercase"
-              marginBottom="16px"
-              letterSpacing="1.4px"
-              smallPhoneMaxWidth="80%"
-            >
-              Bam Beats
-            </GenericStyledText>
-            <GenericStyledText
-              as="h1"
-              color="#ac94f4"
-              fontSize="44px"
-              fontWeight="600"
-              marginBottom="24px"
-              tabletFontSize="40px"
-              phoneFontSize="32px"
-              smallPhoneMaxWidth="80%"
-              textAlign="left"
-              smallPhoneTextAlign="center"
-            >
-              SoundCloud Playlist
-            </GenericStyledText>
-            <GenericStyledText
-              fontSize="20px"
-              lineHeight="26px"
-              color="#fff"
-              marginTop="30px"
-              marginBottom="25px"
-              maxWidth="440px"
-              phoneFontSize="18px"
-              smallPhoneFontSize="16px"
-              smallPhoneMaxWidth="80%"
-              textAlign="left"
-              marginLeft="20px;"
-            >
-              SoundCloud is the number one platform used by Bam fans. You can
-              stay up to date with the latest events and music media produced
-              by Trapstar.
-            </GenericStyledText>
-            <BtnWrap style={{ marginBottom: '0px' }}>
-              <Button
-                to="new"
-                smooth={true}
-                duration={500}
-                spy={true}
-                exact="true"
-                offset={-80}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
+        </SectionBg>
+        <SectionWrapper>
+          <FlexibleLayout $reverse={false}>
+            <ImgWrap>
+              <Music>
+                <iframe
+                  title="iframe"
+                  width="100%"
+                  height="455px"
+                  allow="autoplay"
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin allow-presentation"
+                  src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1761927219&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
+                  ></iframe>
+              </Music>
+            </ImgWrap>
+            <TextWrapper>
+            <StyledText
+                as="p"
+                color="#fff"
+                fontSize="20px"
+                fontWeight="700"
+                textTransform="uppercase"
+                marginBottom="16px"
+                letterSpacing="1.4px"
               >
-                Continue&nbsp;&nbsp;
-                <ButtonIcon hover={isHovered} />
-              </Button>
-            </BtnWrap>
-          </GenericTextWrapper>
-        </FlexibleLayout>
-      </GenericSectionWrapper>
-    </GenericSectionContainer>
+                Bam Beats
+              </StyledText>
+              <StyledText
+                as="h1"
+                color="#ac94f4"
+                fontSize="44px"
+                fontWeight="600"
+                marginBottom="24px"
+                tabletFontSize="40px"
+                phoneFontSize="32px"
+              >
+                SoundCloud Playlist
+              </StyledText>
+              <StyledText
+                fontSize="20px"
+                lineHeight="26px"
+                color="#fff"
+                marginTop="30px"
+                marginBottom="25px"
+                maxWidth="440px"
+                phoneFontSize="18px"
+              >
+                SoundCloud is the number one platform used by Bam fans. You can
+                stay up to date with the latest events and music media produced
+                by Trapstar.
+              </StyledText>
+              <BtnWrap>
+                <Button
+                  to="new"
+                  smooth={true}
+                  duration={500}
+                  spy={true}
+                  exact="true"
+                  offset={-80}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                >
+                  {"Continue"}&nbsp;&nbsp;
+                  <ButtonIcon hover={isHovered} />
+                </Button>
+              </BtnWrap>
+            </TextWrapper>
+          </FlexibleLayout>
+        </SectionWrapper>
+      </SectionContainer>
+    </>
   );
 });
 

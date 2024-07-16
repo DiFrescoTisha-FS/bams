@@ -2,10 +2,12 @@ import styled from "styled-components";
 import { Link } from 'react-router-dom';
 
 export const FooterContainer = styled.footer`
-    background-color: #010606;
-    width: 100%;
-    min-height: 80px;
-    z-index: 1;
+  background-color: #010606;
+  width: 100%;
+  min-height: 80px;
+  z-index: 10; /* Higher than the background */
+  position: sticky;
+  bottom: 0; /* Sticks to the bottom */
 `;
 
 export const FooterWrap =  styled.div`

@@ -9,14 +9,14 @@ export const StyledNav = styled.nav.withConfig({
   background: ${({ backgroundColor }) => backgroundColor || 'transparent'};
   height: 80px;
   display: flex;
-  justify-content: center;  /* Center the navbar */
+  justify-content: center;
   align-items: center;
   font-size: 1rem;
   position: fixed;
   top: 0;
   z-index: 1000;
   width: 100%;
-  padding: 0;  /* Remove padding to prevent extra space */
+  padding: 0;
 
   @media screen and (max-width: 960px) {
     transition: 0.8s all ease;
@@ -53,10 +53,6 @@ export const NavLogo = styled(LinkR)`
   font-weight: bold;
   text-decoration: none;
   z-index: 10;
-
-  /* ${media_queries.phone`
-    margin-left: -16px;
-  `} */
 `;
 
 export const NavIcon = styled.img`
@@ -79,7 +75,7 @@ export const MobileIcon = styled.div`
     display: block;
     position: absolute;
     top: 22px;
-    right: 64px;  /* Adjust the position to ensure visibility */
+    right: 64px;
     font-size: 1.8rem;
     cursor: pointer;
     color: #fff;
@@ -115,7 +111,6 @@ export const NavLinks = styled(LinkS)`
     width: 100%;
   }
 `;
-
 
 export const NavMenu = styled.ul`
   display: flex;

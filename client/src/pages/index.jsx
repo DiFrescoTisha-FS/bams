@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { useNavigate } from 'react-router-dom';
-import useAuthContext from '../hooks/useAuthContext';
+import { useAuthContext } from '../contexts/AuthContext'; // Ensure the correct import
 import { usePageVisibility } from '../hooks/usePageVisibility';
 import axios from 'axios';
 import ArtistInfo from "../components/artistInfo/Artist";
@@ -33,10 +33,6 @@ const Home = ({ currentUser }) => {
             'Expires': '0',
           },
         });
-        // Remove this navigation if it exists
-        // if (response.data.isAuthenticated) {
-        //   navigate('/auth-status'); // Redirect to auth status page if already authenticated
-        // }
       } catch (error) {
         console.error('Error checking auth status:', error);
       }
